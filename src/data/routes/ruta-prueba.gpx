@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ruta de PRUEBA generada para dejar el mapa funcionando antes de tener el
+     GPX real. Cuando llegue el trazado real, borrar este archivo y volver a
+     correr: node scripts/gpx-a-rutas.mjs -->
+<gpx version="1.1" creator="el-atanquero" xmlns="http://www.topografix.com/GPX/1/1">
+  <trk>
+    <name>Ruta de prueba — subida desde Atánquez</name>
+    <trkseg>
+      <trkpt lat="10.6996" lon="-73.3542"><ele>1010</ele></trkpt>
+      <trkpt lat="10.7012" lon="-73.3551"><ele>1032</ele></trkpt>
+      <trkpt lat="10.7028" lon="-73.3546"><ele>1058</ele></trkpt>
+      <trkpt lat="10.7041" lon="-73.3557"><ele>1075</ele></trkpt>
+      <trkpt lat="10.7057" lon="-73.3563"><ele>1104</ele></trkpt>
+      <trkpt lat="10.7069" lon="-73.3552"><ele>1131</ele></trkpt>
+      <trkpt lat="10.7085" lon="-73.3556"><ele>1152</ele></trkpt>
+      <trkpt lat="10.7098" lon="-73.3568"><ele>1149</ele></trkpt>
+      <trkpt lat="10.7113" lon="-73.3577"><ele>1170</ele></trkpt>
+      <trkpt lat="10.7126" lon="-73.3589"><ele>1196</ele></trkpt>
+      <trkpt lat="10.7141" lon="-73.3585"><ele>1223</ele></trkpt>
+      <trkpt lat="10.7155" lon="-73.3594"><ele>1247</ele></trkpt>
+      <trkpt lat="10.7168" lon="-73.3606"><ele>1241</ele></trkpt>
+      <trkpt lat="10.7182" lon="-73.3614"><ele>1268</ele></trkpt>
+      <trkpt lat="10.7196" lon="-73.3609"><ele>1290</ele></trkpt>
+      <trkpt lat="10.7209" lon="-73.3620"><ele>1315</ele></trkpt>
+      <trkpt lat="10.7222" lon="-73.3631"><ele>1332</ele></trkpt>
+      <trkpt lat="10.7236" lon="-73.3626"><ele>1350</ele></trkpt>
+      <trkpt lat="10.7248" lon="-73.3637"><ele>1372</ele></trkpt>
+      <trkpt lat="10.7261" lon="-73.3645"><ele>1391</ele></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

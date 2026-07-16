@@ -52,24 +52,15 @@
             foto, radio y pódcast.
           </p>
         </div>
-        <dl class="portada-datos">
-          <div>
-            <dt>Origen</dt>
-            <dd>
-              Atánquez
-              <small>Pueblo de la Sierra Nevada, a unos 50 km al norte de Valledupar: unos seis
-                mil habitantes y capital del resguardo indígena kankuamo</small>
-            </dd>
-          </div>
-          <div>
-            <dt>Territorio</dt>
-            <dd>
-              Sierra Nevada de Santa Marta
-              <small>El corazón del mundo, donde habitan sus cuatro pueblos: koguis, kankuamos,
-                wiwas y arhuacos</small>
-            </dd>
-          </div>
-        </dl>
+        <!-- El mapa del territorio: un mapa real acotado a la zona kankuama,
+             con las rutas de los recorridos dibujadas encima. -->
+        <div class="portada-mapa">
+          <div
+            id="mapa-territorio"
+            aria-label="Mapa del territorio kankuamo con las rutas de los recorridos"
+          ></div>
+          <p class="portada-mapa-pie">El territorio kankuamo — toca una ruta para ver el recorrido</p>
+        </div>
       </div>
 
       <!-- Enosh en el territorio: la foto abre el sitio como un paisaje,
@@ -81,6 +72,27 @@
         />
         <figcaption>Laguna de Kuriwa, en el corazón de la Sierra</figcaption>
       </figure>
+
+      <!-- Los datos de origen y territorio: antes iban junto al titulo, pero
+           ese puesto ahora lo ocupa el mapa. Aqui quedan como banda. -->
+      <dl class="limite portada-datos banda">
+        <div>
+          <dt>Origen</dt>
+          <dd>
+            Atánquez
+            <small>Pueblo de la Sierra Nevada, a unos 50 km al norte de Valledupar: unos seis
+              mil habitantes y capital del resguardo indígena kankuamo</small>
+          </dd>
+        </div>
+        <div>
+          <dt>Territorio</dt>
+          <dd>
+            Sierra Nevada de Santa Marta
+            <small>El corazón del mundo, donde habitan sus cuatro pueblos: koguis, kankuamos,
+              wiwas y arhuacos</small>
+          </dd>
+        </div>
+      </dl>
 
       <!-- La Sierra: tres cordones. El lejano, azuloso, lleva los picos
            nevados — los dos del centro son los gemelos, Colón y Bolívar.

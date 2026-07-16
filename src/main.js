@@ -26,6 +26,14 @@ enlaceWa('#waTour', 'Hola Enosh, quiero cuadrar un recorrido por Atánquez.');
 enlaceWa('#waPie', 'Hola Enosh, quiero más información.');
 enlaceWa('#waNav', 'Hola Enosh, quiero más información.');
 
+// El mapa del territorio vive en la portada. MapLibre pesa mas que todo el
+// resto del sitio junto, asi que va en su propio pedazo del build y solo se
+// carga en la pagina que tiene el contenedor.
+const lienzoMapa = $('#mapa-territorio');
+if (lienzoMapa) {
+  import('./mapa/territorio.js').then((m) => m.montarMapa(lienzoMapa));
+}
+
 const mochilas = cargarMochilas();
 const lista = $('#catalogo');
 

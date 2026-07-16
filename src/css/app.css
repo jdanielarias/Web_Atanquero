@@ -398,7 +398,8 @@ a {
 }
 .portada-reja {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  /* Mitad texto, mitad mapa: el mapa es protagonista, no un dato al margen. */
+  grid-template-columns: 1fr 1.05fr;
   gap: clamp(1.5rem, 5vw, 4rem);
   align-items: end;
 }
@@ -412,7 +413,9 @@ a {
   font-family: var(--display);
   font-variation-settings: 'wdth' 85, 'opsz' 96;
   font-weight: 700;
-  font-size: clamp(2.8rem, 8vw, 5.6rem);
+  /* Mas chico que antes: el mapa del territorio comparte la portada y el
+     titulo no necesita gritar. */
+  font-size: clamp(2.2rem, 5.5vw, 3.8rem);
   line-height: 0.92;
   letter-spacing: -0.03em;
   margin-bottom: 1rem;
@@ -459,6 +462,132 @@ a {
   gap: 1px;
   background: var(--linea);
   border: 1px solid var(--linea);
+}
+/* Como banda debajo de la foto: los dos datos lado a lado. */
+.portada-datos.banda {
+  grid-template-columns: 1fr 1fr;
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+@media (max-width: 44rem) {
+  .portada-datos.banda {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===========================================================================
+   EL MAPA DEL TERRITORIO
+   Un mapa real de la zona de Atánquez con las rutas de los recorridos
+   encima. El grueso del estilo lo pone src/mapa/territorio.js; aqui va la
+   caja, los marcadores y el panel de datos.
+   =========================================================================== */
+#mapa-territorio {
+  height: clamp(20rem, 44vh, 26rem);
+  border: 1px solid var(--linea-fuerte);
+  /* El polvo se ve mientras cargan los tiles. */
+  background: var(--polvo);
+}
+.portada-mapa-pie {
+  margin-top: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+.mapa-marcador {
+  display: block;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--barro);
+  border: 2px solid var(--papel-alto);
+  box-shadow: 0 0 0 1px var(--linea-fuerte);
+}
+.mapa-marcador.fin {
+  background: var(--brasil);
+}
+.mapa-panel {
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 5;
+  max-height: calc(100% - 1.5rem);
+  overflow: auto;
+  background: var(--papel-alto);
+  border: 1px solid var(--linea-fuerte);
+  padding: 1rem 1.1rem;
+}
+.mapa-panel h3 {
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 85, 'opsz' 32;
+  font-size: 1.15rem;
+  line-height: 1.15;
+  padding-right: 1.5rem;
+}
+.mapa-panel-desc {
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--tinta-media);
+}
+.mapa-panel-prueba {
+  display: inline-block;
+  margin-bottom: 0.45rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px dashed var(--linea-fuerte);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+.mapa-panel-datos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  margin-top: 0.7rem;
+}
+.mapa-panel-datos dt {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+.mapa-panel-datos dd {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.mapa-panel-fotos {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+  overflow-x: auto;
+}
+.mapa-panel-fotos img {
+  height: 4.5rem;
+  border: 1px solid var(--linea);
+}
+.mapa-panel .boton {
+  margin-top: 0.9rem;
+}
+.mapa-panel-cerrar {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.5rem;
+  border: none;
+  background: none;
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--tinta-media);
+  cursor: pointer;
+}
+/* Los controles de maplibre, vestidos como el resto del sitio. */
+#mapa-territorio .maplibregl-ctrl-group {
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid var(--linea-fuerte);
+  background: var(--papel-alto);
 }
 .portada-datos div {
   background: var(--papel-alto);

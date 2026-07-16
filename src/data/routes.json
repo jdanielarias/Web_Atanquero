@@ -1,0 +1,98 @@
+[
+  {
+    "id": "ruta-prueba",
+    "nombre": "Subida desde Atánquez (ruta de prueba)",
+    "descripcion_corta": "Trazado de ejemplo para probar el mapa. Se reemplaza cuando llegue el GPX real del recorrido.",
+    "dificultad": "moderado",
+    "distancia_km": 3.5,
+    "desnivel_m": 390,
+    "duracion_estimada": "2–3 horas",
+    "geojson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -73.3542,
+          10.6996
+        ],
+        [
+          -73.3551,
+          10.7012
+        ],
+        [
+          -73.3546,
+          10.7028
+        ],
+        [
+          -73.3557,
+          10.7041
+        ],
+        [
+          -73.3563,
+          10.7057
+        ],
+        [
+          -73.3552,
+          10.7069
+        ],
+        [
+          -73.3556,
+          10.7085
+        ],
+        [
+          -73.3568,
+          10.7098
+        ],
+        [
+          -73.3577,
+          10.7113
+        ],
+        [
+          -73.3589,
+          10.7126
+        ],
+        [
+          -73.3585,
+          10.7141
+        ],
+        [
+          -73.3594,
+          10.7155
+        ],
+        [
+          -73.3606,
+          10.7168
+        ],
+        [
+          -73.3614,
+          10.7182
+        ],
+        [
+          -73.3609,
+          10.7196
+        ],
+        [
+          -73.362,
+          10.7209
+        ],
+        [
+          -73.3631,
+          10.7222
+        ],
+        [
+          -73.3626,
+          10.7236
+        ],
+        [
+          -73.3637,
+          10.7248
+        ],
+        [
+          -73.3645,
+          10.7261
+        ]
+      ]
+    },
+    "fotos": [],
+    "es_prueba": true
+  }
+]
