@@ -18,6 +18,7 @@ addEventListener('resize', medirNav);
 
 $('#waTour').href = wa('Hola Enosh, quiero cuadrar un recorrido por Atánquez.');
 $('#waPie').href = wa('Hola Enosh, quiero más información.');
+$('#waNav').href = wa('Hola Enosh, quiero más información.');
 
 const mochilas = cargarMochilas();
 const lista = $('#catalogo');

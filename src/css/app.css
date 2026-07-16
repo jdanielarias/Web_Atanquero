@@ -289,10 +289,10 @@ a {
   top: 0;
   z-index: 30;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.4rem 1rem;
+  gap: 0.4rem 1.25rem;
   padding: 0.9rem var(--marco);
   background: var(--papel);
   border-bottom: 1px solid var(--linea);
@@ -308,6 +308,8 @@ a {
   display: flex;
   gap: 1.5rem;
   list-style: none;
+  /* Empuja la lista (y el boton de contacto) hacia la derecha. */
+  margin-left: auto;
 }
 .nav-lista a {
   font-size: 0.82rem;
@@ -319,14 +321,22 @@ a {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+/* El boton de contacto del nav: mas compacto que los botones normales para
+   no engordar la barra. */
+.nav-contacto {
+  padding: 0.45rem 0.9rem;
+}
+
 /* En movil los enlaces pasan a una segunda fila en vez de desaparecer. Son
-   cuatro y cortos: esconderlos detras de una hamburguesa seria esconder toda
-   la navegacion del sitio a cambio de nada. */
+   cinco y cortos: esconderlos detras de una hamburguesa seria esconder toda
+   la navegacion del sitio a cambio de nada. El boton de contacto se queda
+   en la primera fila, junto a la marca. */
 @media (max-width: 44rem) {
-  .nav {
-    justify-content: flex-start;
+  .nav-contacto {
+    margin-left: auto;
   }
   .nav-lista {
+    order: 3;
     flex-basis: 100%;
     justify-content: space-between;
     gap: 0.5rem;
