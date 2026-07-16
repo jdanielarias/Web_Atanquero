@@ -481,7 +481,7 @@ a {
    caja, los marcadores y el panel de datos.
    =========================================================================== */
 #mapa-territorio {
-  height: clamp(20rem, 44vh, 26rem);
+  height: clamp(22rem, 52vh, 30rem);
   border: 1px solid var(--linea-fuerte);
   /* El polvo se ve mientras cargan los tiles. */
   background: var(--polvo);
@@ -493,18 +493,6 @@ a {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--tinta-suave);
-}
-.mapa-marcador {
-  display: block;
-  width: 0.85rem;
-  height: 0.85rem;
-  border-radius: 50%;
-  background: var(--barro);
-  border: 2px solid var(--papel-alto);
-  box-shadow: 0 0 0 1px var(--linea-fuerte);
-}
-.mapa-marcador.fin {
-  background: var(--brasil);
 }
 .mapa-panel {
   position: absolute;
@@ -541,11 +529,13 @@ a {
   text-transform: uppercase;
   color: var(--tinta-suave);
 }
+/* Los datos, en columna: van al lado de la foto (que suele ser vertical)
+   para aprovechar el ancho del panel. */
 .mapa-panel-datos {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1.4rem;
-  margin-top: 0.7rem;
+  flex-direction: column;
+  flex: 0 0 auto;
+  gap: 0.55rem;
 }
 .mapa-panel-datos dt {
   font-size: 0.65rem;
@@ -558,18 +548,40 @@ a {
   font-weight: 700;
   font-size: 0.95rem;
 }
+/* Las fotos del recorrido: grandes y ENTERAS, cada una con su proporcion
+   natural (sin recortes — una foto vertical se ve vertical). Si hay varias,
+   quedan en fila y se deslizan de lado. */
+.mapa-panel-cuerpo {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+  margin-top: 0.8rem;
+}
 .mapa-panel-fotos {
   display: flex;
-  gap: 0.5rem;
-  margin-top: 0.7rem;
+  flex: 1;
+  min-width: 0;
+  gap: 0.6rem;
   overflow-x: auto;
+  scroll-snap-type: x proximity;
 }
 .mapa-panel-fotos img {
-  height: 4.5rem;
+  flex: 0 0 auto;
+  height: clamp(11rem, 26vh, 15rem);
+  width: auto;
+  scroll-snap-align: start;
   border: 1px solid var(--linea);
 }
-.mapa-panel .boton {
-  margin-top: 0.9rem;
+/* La franja del boton de agendar: pegada abajo, con fondo, para que el
+   contenido del panel se deslice por detras sin chocar con ella. Los
+   margenes negativos la llevan al borde real del panel. */
+.mapa-panel-accion {
+  position: sticky;
+  bottom: -1rem;
+  margin: 0.9rem -1.1rem -1rem;
+  padding: 0.6rem 1.1rem 0.9rem;
+  background: var(--papel-alto);
+  border-top: 1px solid var(--linea);
 }
 .mapa-panel-cerrar {
   position: absolute;

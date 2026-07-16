@@ -19,9 +19,14 @@ const POLVO = '#ded9c2';
 const TINTA = '#1d1a12';
 const TINTA_MEDIA = '#57513e';
 const BARRO = '#9c4520';
-const AGUA = '#7f98b3'; // añil rebajado, para rios y lagunas
-const VERDE = '#c6cbab'; // monte rebajado, para vegetacion
+const BRASIL = '#8b3a4a';
+const AGUA = '#6f93b8'; // añil, para rios y lagunas
+const VERDE = '#b3c295'; // monte, para vegetacion
 const VIA = '#c0b48c'; // fique tenue, para las vias
+
+// Con reduced-motion activado no se anima nada: ni trazo, ni caminante,
+// ni deriva de camara.
+const REDUCIDO = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // El cuadro del territorio: no se puede pasear el mapa fuera de esta zona.
 // Ajustable si algun recorrido queda por fuera.
@@ -69,8 +74,11 @@ function vestirMapa(map) {
         if (/poi|airport|housenumber|transit|station|place-country|place-state|place-continent/.test(id)) {
           ocultar();
         } else {
-          map.setPaintProperty(id, 'text-color', TINTA_MEDIA);
-          map.setPaintProperty(id, 'text-halo-color', PAPEL_ALTO);
+          // Texto claro con halo oscuro: sobre la foto satelital lo oscuro
+          // se pierde.
+          map.setPaintProperty(id, 'text-color', PAPEL_ALTO);
+          map.setPaintProperty(id, 'text-halo-color', 'rgba(29, 26, 18, 0.85)');
+          map.setPaintProperty(id, 'text-halo-width', 1.4);
         }
       }
     } catch {
@@ -79,9 +87,30 @@ function vestirMapa(map) {
   }
 }
 
-function marcador(map, coordenada, clase) {
-  const punto = el('span', `mapa-marcador ${clase}`);
-  new maplibregl.Marker({ element: punto }).setLngLat(coordenada).addTo(map);
+// Los puntos de inicio y fin van como capa del mapa (no como marcadores DOM):
+// con el terreno 3D activo son lo unico que queda pegado a la ladera.
+function marcarExtremos(map, id, coords) {
+  map.addSource(id, {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: [
+        { type: 'Feature', properties: { tipo: 'inicio' }, geometry: { type: 'Point', coordinates: coords[0] } },
+        { type: 'Feature', properties: { tipo: 'fin' }, geometry: { type: 'Point', coordinates: coords.at(-1) } },
+      ],
+    },
+  });
+  map.addLayer({
+    id,
+    type: 'circle',
+    source: id,
+    paint: {
+      'circle-radius': 5.5,
+      'circle-color': ['match', ['get', 'tipo'], 'fin', BRASIL, BARRO],
+      'circle-stroke-color': PAPEL_ALTO,
+      'circle-stroke-width': 2,
+    },
+  });
 }
 
 // El trazo se dibuja punto a punto, como en Strava. Con reduced-motion la
@@ -94,7 +123,7 @@ function animarTrazo(map, idFuente, coordenadas) {
     geometry: { type: 'LineString', coordinates: coords },
   });
 
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (REDUCIDO) {
     fuente.setData(linea(coordenadas));
     return;
   }
@@ -108,6 +137,83 @@ function animarTrazo(map, idFuente, coordenadas) {
     const corte = Math.max(2, Math.ceil(coordenadas.length * suave));
     fuente.setData(linea(coordenadas.slice(0, corte)));
     if (avance < 1) requestAnimationFrame(paso);
+  };
+  requestAnimationFrame(paso);
+}
+
+// El caminante: un punto claro que recorre la ruta en bucle, despacio, como
+// alguien subiendo. Es el mismo espiritu de las hojas que caen: movimiento
+// lento que invita, no que distrae.
+function caminarRuta(map, id, coords) {
+  if (REDUCIDO) return;
+
+  // Largos de cada tramo (aproximacion plana: la zona es chica).
+  const tramos = [];
+  let total = 0;
+  for (let i = 1; i < coords.length; i++) {
+    const dx = (coords[i][0] - coords[i - 1][0]) * Math.cos((coords[i][1] * Math.PI) / 180);
+    const dy = coords[i][1] - coords[i - 1][1];
+    const d = Math.hypot(dx, dy);
+    tramos.push(d);
+    total += d;
+  }
+
+  const punto = (c) => ({ type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: c } });
+  map.addSource(id, { type: 'geojson', data: punto(coords[0]) });
+  map.addLayer({
+    id,
+    type: 'circle',
+    source: id,
+    paint: {
+      'circle-radius': 4,
+      'circle-color': PAPEL_ALTO,
+      'circle-stroke-color': BARRO,
+      'circle-stroke-width': 2,
+    },
+  });
+
+  const duracion = 24000; // toda la ruta, con calma
+  const pausa = 2500; // respiro al llegar, antes de volver a salir
+  const fuente = map.getSource(id);
+  let inicio = null;
+  const paso = (t) => {
+    if (inicio === null) inicio = t;
+    const ciclo = (t - inicio) % (duracion + pausa);
+    const avance = Math.min(ciclo / duracion, 1) * total;
+    let recorrido = 0;
+    let c = coords.at(-1);
+    for (let i = 0; i < tramos.length; i++) {
+      if (recorrido + tramos[i] >= avance) {
+        const f = tramos[i] ? (avance - recorrido) / tramos[i] : 0;
+        c = [
+          coords[i][0] + (coords[i + 1][0] - coords[i][0]) * f,
+          coords[i][1] + (coords[i + 1][1] - coords[i][1]) * f,
+        ];
+        break;
+      }
+      recorrido += tramos[i];
+    }
+    fuente.setData(punto(c));
+    requestAnimationFrame(paso);
+  };
+  requestAnimationFrame(paso);
+}
+
+// La deriva: el mapa gira apenas, muy despacio, como respirando. Se detiene
+// para siempre en cuanto el usuario lo toca — de ahi en adelante manda el.
+function derivaLenta(map) {
+  if (REDUCIDO) return;
+  let activa = true;
+  const parar = () => (activa = false);
+  for (const ev of ['mousedown', 'wheel', 'touchstart']) {
+    map.getCanvas().addEventListener(ev, parar, { passive: true, once: true });
+  }
+  const base = map.getBearing();
+  const t0 = performance.now();
+  const paso = (t) => {
+    if (!activa) return;
+    map.setBearing(base + 6 * Math.sin((t - t0) / 14000));
+    requestAnimationFrame(paso);
   };
   requestAnimationFrame(paso);
 }
@@ -134,6 +240,22 @@ function mostrarRuta(panel, ruta) {
   panel.append(el('h3', null, ruta.nombre));
   if (ruta.descripcion_corta) panel.append(el('p', 'mapa-panel-desc', ruta.descripcion_corta));
 
+  // Las fotos grandes y enteras, con los datos en columna a su lado: asi
+  // todo se ve de una, sin deslizar.
+  const cuerpo = el('div', 'mapa-panel-cuerpo');
+
+  if (ruta.fotos.length) {
+    const fotos = el('div', 'mapa-panel-fotos');
+    for (const src of ruta.fotos) {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = `Foto del recorrido ${ruta.nombre}`;
+      img.loading = 'lazy';
+      fotos.append(img);
+    }
+    cuerpo.append(fotos);
+  }
+
   const datos = el('dl', 'mapa-panel-datos');
   const dato = (titulo, valor) => {
     if (!valor) return;
@@ -145,25 +267,19 @@ function mostrarRuta(panel, ruta) {
   dato('Desnivel', `+${ruta.desnivel_m} m`);
   dato('Dificultad', ruta.dificultad);
   dato('Duración', ruta.duracion_estimada);
-  panel.append(datos);
+  cuerpo.append(datos);
 
-  if (ruta.fotos.length) {
-    const fotos = el('div', 'mapa-panel-fotos');
-    for (const src of ruta.fotos) {
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = `Foto del recorrido ${ruta.nombre}`;
-      img.loading = 'lazy';
-      fotos.append(img);
-    }
-    panel.append(fotos);
-  }
+  panel.append(cuerpo);
 
   const boton = el('a', 'boton solido', 'Agendar este recorrido');
   boton.href = wa(`Hola Enosh, quiero agendar el recorrido: ${ruta.nombre}.`);
   boton.target = '_blank';
   boton.rel = 'noopener';
-  panel.append(boton);
+  // El boton va en su propia franja con fondo: queda pegada abajo mientras
+  // el resto del panel se desliza por detras.
+  const accion = el('div', 'mapa-panel-accion');
+  accion.append(boton);
+  panel.append(accion);
 
   panel.hidden = false;
 }
@@ -176,6 +292,8 @@ export function montarMapa(contenedor) {
     zoom: 12,
     minZoom: 10.5,
     maxZoom: 16,
+    // Inclinado de entrada: con el terreno 3D activo, la Sierra se levanta.
+    pitch: 52,
     maxBounds: LIMITES,
     attributionControl: { compact: true },
     // Que el scroll de la pagina no se quede atrapado en el mapa.
@@ -192,6 +310,71 @@ export function montarMapa(contenedor) {
 
   map.on('load', () => {
     vestirMapa(map);
+
+    // La Sierra de verdad: imagen satelital (Esri World Imagery, uso libre
+    // con credito, sin API key) debajo de las vias y los nombres. Los
+    // rellenos vectoriales se esconden: el satelite ya trae tierra, agua y
+    // monte con su verde real.
+    map.addSource('satelite', {
+      type: 'raster',
+      tiles: [
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      ],
+      tileSize: 256,
+      maxzoom: 17,
+      attribution: 'Imágenes: Esri, Maxar, Earthstar Geographics',
+    });
+    const primeraCapa = map.getStyle().layers.find((c) => c.type !== 'background')?.id;
+    map.addLayer(
+      {
+        id: 'satelite',
+        type: 'raster',
+        source: 'satelite',
+        // Un empujon de saturacion para que el monte se vea vivo.
+        paint: { 'raster-saturation': 0.25 },
+      },
+      primeraCapa,
+    );
+    for (const capa of map.getStyle().layers) {
+      if (capa.type === 'fill') map.setLayoutProperty(capa.id, 'visibility', 'none');
+    }
+
+    // El relieve: tiles de elevacion abiertos (Mapzen/AWS Open Data, sin API
+    // key). Dos fuentes iguales porque maplibre recomienda no compartir la
+    // misma entre el sombreado y el terreno 3D.
+    const dem = {
+      type: 'raster-dem',
+      tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'],
+      encoding: 'terrarium',
+      tileSize: 256,
+      maxzoom: 13,
+      attribution: 'Relieve: Mapzen / AWS Open Data',
+    };
+    map.addSource('relieve-sombra', dem);
+    map.addSource('relieve-terreno', dem);
+
+    // El sombreado va debajo de las etiquetas para no tapar los nombres.
+    const primeraEtiqueta = map.getStyle().layers.find((c) => c.type === 'symbol')?.id;
+    map.addLayer(
+      {
+        id: 'relieve',
+        type: 'hillshade',
+        source: 'relieve-sombra',
+        paint: {
+          // Suave: la foto satelital ya trae sus propias sombras, esto solo
+          // remarca los filos.
+          'hillshade-exaggeration': 0.3,
+          'hillshade-shadow-color': '#3d3a2c',
+          'hillshade-highlight-color': '#fdf8e6',
+          'hillshade-accent-color': '#6b6450',
+        },
+      },
+      primeraEtiqueta,
+    );
+
+    // Y el terreno de verdad: las montañas suben, el trazado se acuesta
+    // sobre la ladera.
+    map.setTerrain({ source: 'relieve-terreno', exaggeration: 1.25 });
 
     const todas = [];
     const rutaPorCapa = new Map();
@@ -221,9 +404,9 @@ export function montarMapa(contenedor) {
         paint: { 'line-color': BARRO, 'line-width': 3.5 },
       });
 
-      marcador(map, coords[0], 'inicio');
-      marcador(map, coords.at(-1), 'fin');
+      marcarExtremos(map, `${idFuente}-puntos`, coords);
       animarTrazo(map, idFuente, coords);
+      caminarRuta(map, `${idFuente}-caminante`, coords);
 
       rutaPorCapa.set(idFuente, ruta);
       map.on('mouseenter', idFuente, () => {
@@ -263,5 +446,7 @@ export function montarMapa(contenedor) {
         { padding: 48, animate: false },
       );
     }
+
+    derivaLenta(map);
   });
 }
