@@ -227,7 +227,8 @@ a {
    =========================================================================== */
 .chipire-reja {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
+  /* Retrato al frente, texto al centro, chipire tejiendose al lado. */
+  grid-template-columns: 0.85fr 1.5fr 0.75fr;
   gap: clamp(1.5rem, 4vw, 3.5rem);
   align-items: center;
   margin-top: 1.1rem;
@@ -236,10 +237,32 @@ a {
   .chipire-reja {
     grid-template-columns: 1fr;
   }
+  .chipire-retrato {
+    max-width: 20rem;
+    margin-inline: auto;
+  }
   .chipire-dibujo {
     max-width: 13rem;
     margin-inline: auto;
   }
+}
+.chipire-retrato {
+  margin: 0;
+}
+.chipire-retrato img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid var(--linea);
+}
+.chipire-retrato figcaption {
+  margin-top: 0.6rem;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
 }
 .chipire-dibujo {
   margin: 0;
@@ -298,11 +321,21 @@ a {
   border-bottom: 1px solid var(--linea);
 }
 .nav-marca {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
   font-family: var(--display);
   font-variation-settings: 'wdth' 85, 'opsz' 14;
   font-weight: 700;
   font-size: 1.05rem;
   text-decoration: none;
+}
+/* El escudo del logo, chiquito, como sello de la marca. El margen negativo
+   evita que engorde la barra: el alto lo sigue mandando el texto. */
+.nav-logo {
+  width: 2.4rem;
+  height: auto;
+  margin-block: -0.5rem;
 }
 .nav-lista {
   display: flex;
@@ -391,6 +424,33 @@ a {
   color: var(--tinta-media);
   font-size: 1.05rem;
 }
+/* La foto grande de la portada: un paisaje ancho, recortado como banner,
+   que remata en la silueta de la Sierra justo debajo. */
+.portada-foto {
+  margin: clamp(2.25rem, 5vw, 3.5rem) auto 0;
+}
+.portada-foto img {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  /* Un pelo hacia abajo: que no se corten las botas ni el morral. */
+  object-position: center 62%;
+  border: 1px solid var(--linea);
+}
+@media (max-width: 44rem) {
+  .portada-foto img {
+    aspect-ratio: 16 / 10;
+  }
+}
+.portada-foto figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
 .portada-datos {
   display: grid;
   gap: 1px;
@@ -950,6 +1010,23 @@ a {
     align-items: start;
   }
 }
+/* El logo firma el cierre, encima del boton de WhatsApp. */
+.cierre-firma {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
+.cierre-logo {
+  width: clamp(7rem, 11vw, 9rem);
+  height: auto;
+}
+@media (max-width: 44rem) {
+  .cierre-firma {
+    align-items: flex-start;
+  }
+}
+
 .redes {
   display: flex;
   flex-wrap: wrap;
