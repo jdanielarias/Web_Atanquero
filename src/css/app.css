@@ -637,17 +637,19 @@ a {
 }
 
 /* --- la franja de agua con el boton de agendar ---------------------------- */
+/* El unico bloque oscuro de toda la pagina: el rio de noche. El añil es el
+   tinte real de las mochilas, y aqui se gasta todo el contraste del sitio —
+   por eso el boton de barro arde justo en este punto y en ningun otro. */
 .rio {
   position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem 2rem;
+  gap: 1.25rem 2rem;
   /* Mas aire abajo: ahi vive el agua y no debe tocar el boton. */
-  padding: clamp(1.4rem, 3vw, 2rem) clamp(1.4rem, 3vw, 2rem) clamp(3.4rem, 6vw, 4.2rem);
-  border: 1px solid var(--linea);
-  background: linear-gradient(180deg, var(--papel-alto) 45%, rgba(44, 74, 114, 0.14));
+  padding: clamp(1.8rem, 3.5vw, 2.6rem) clamp(1.4rem, 3vw, 2.2rem) clamp(3.6rem, 6vw, 4.6rem);
+  background: linear-gradient(180deg, var(--anil), #1b3050);
   overflow: hidden;
 }
 .rio > * {
@@ -656,7 +658,26 @@ a {
 }
 .rio-texto {
   max-width: 46ch;
-  color: var(--tinta-media);
+}
+.rio-texto h3 {
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 85, 'opsz' 28;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.1;
+  color: #f4f0e2;
+  margin-bottom: 0.55rem;
+}
+.rio-texto p {
+  color: rgba(236, 232, 216, 0.78);
+  font-size: 0.95rem;
+}
+/* Sobre el añil oscuro, el hover del boton se invierte a papel. */
+.rio .boton.solido:hover,
+.rio .boton.solido:focus-visible {
+  background: var(--papel-alto);
+  border-color: var(--papel-alto);
+  color: var(--tinta);
 }
 /* El agua es de rio, no de mar: hilos de corriente que viajan todos en el
    mismo sentido a velocidades distintas — lo hondo lento, la superficie
@@ -691,7 +712,7 @@ a {
   width: 7px;
   height: 5px;
   border-radius: 50%;
-  background: rgba(44, 74, 114, 0.45);
+  background: rgba(236, 232, 216, 0.5);
 }
 .rio .manantial:nth-of-type(1) {
   left: 17%;
@@ -707,7 +728,7 @@ a {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1px solid rgba(44, 74, 114, 0.5);
+  border: 1px solid rgba(236, 232, 216, 0.55);
   opacity: 0;
   animation: manar 5.5s ease-out infinite;
 }
@@ -734,7 +755,7 @@ a {
   content: '';
   position: absolute;
   inset: 0;
-  border: 1px solid rgba(44, 74, 114, 0.5);
+  border: 1px solid rgba(236, 232, 216, 0.6);
   opacity: 0;
   animation: onda 6s ease-out infinite;
   pointer-events: none;
