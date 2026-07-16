@@ -745,6 +745,28 @@ a {
 }
 .tour {
   background: var(--papel-alto);
+  display: flex;
+  flex-direction: column;
+}
+/* La foto de cada recorrido: recorte parejo 4:5, como las tarjetas de las
+   mochilas, y un acercamiento suave al pasar el mouse. */
+.tour-foto {
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--polvo);
+}
+.tour-foto img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.tour:hover .tour-foto img {
+  transform: scale(1.05);
+}
+.tour-texto {
   padding: clamp(1.3rem, 2.5vw, 1.8rem);
 }
 .tour h3 {

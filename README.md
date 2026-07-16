@@ -110,7 +110,7 @@ Con fotos normales alcanza. Cómo salen bien:
 
 ## Antes de publicar
 
-- [ ] El número de WhatsApp real en `src/config.js`
+- [x] El número de WhatsApp real en `src/config.js`
 - [ ] El enlace de YouTube si se quiere sumar (el canal es *El Mochilón TV*);
       Instagram, TikTok, Facebook y X ya apuntan a @elatanquero
 - [ ] Las fotos de portada de cada mochila

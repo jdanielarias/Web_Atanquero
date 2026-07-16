@@ -1,5 +1,9 @@
 node_modules/
 dist/
+
+# Los originales de las fotos pesan mucho; al sitio solo van las de web/.
+fotos_recorrido/*
+!fotos_recorrido/web
 .vercel/
 .DS_Store
 *.log
