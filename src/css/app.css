@@ -481,7 +481,7 @@ a {
    caja, los marcadores y el panel de datos.
    =========================================================================== */
 #mapa-territorio {
-  height: clamp(22rem, 52vh, 30rem);
+  height: clamp(20rem, 44vh, 26rem);
   border: 1px solid var(--linea-fuerte);
   /* El polvo se ve mientras cargan los tiles. */
   background: var(--polvo);
@@ -493,6 +493,18 @@ a {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--tinta-suave);
+}
+.mapa-marcador {
+  display: block;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--barro);
+  border: 2px solid var(--papel-alto);
+  box-shadow: 0 0 0 1px var(--linea-fuerte);
+}
+.mapa-marcador.fin {
+  background: var(--brasil);
 }
 .mapa-panel {
   position: absolute;
@@ -529,12 +541,11 @@ a {
   text-transform: uppercase;
   color: var(--tinta-suave);
 }
-/* Los datos, en fila: sin fotos en el panel, aprovechan el ancho. */
 .mapa-panel-datos {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem 1.6rem;
-  margin-top: 0.8rem;
+  gap: 0.4rem 1.4rem;
+  margin-top: 0.7rem;
 }
 .mapa-panel-datos dt {
   font-size: 0.65rem;
@@ -547,16 +558,18 @@ a {
   font-weight: 700;
   font-size: 0.95rem;
 }
-/* La franja del boton de agendar: pegada abajo, con fondo, para que el
-   contenido del panel se deslice por detras sin chocar con ella. Los
-   margenes negativos la llevan al borde real del panel. */
-.mapa-panel-accion {
-  position: sticky;
-  bottom: -1rem;
-  margin: 0.9rem -1.1rem -1rem;
-  padding: 0.6rem 1.1rem 0.9rem;
-  background: var(--papel-alto);
-  border-top: 1px solid var(--linea);
+.mapa-panel-fotos {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+  overflow-x: auto;
+}
+.mapa-panel-fotos img {
+  height: 4.5rem;
+  border: 1px solid var(--linea);
+}
+.mapa-panel .boton {
+  margin-top: 0.9rem;
 }
 .mapa-panel-cerrar {
   position: absolute;
@@ -1069,6 +1082,7 @@ a {
   text-transform: uppercase;
   color: var(--anil);
 }
+
 /* ===========================================================================
    HILO
    Videos de YouTube y fotos que Enosh va sumando: carpetas en /hilo, igual

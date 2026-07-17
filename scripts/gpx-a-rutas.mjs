@@ -4,7 +4,7 @@
 //   node scripts/gpx-a-rutas.mjs
 //
 // Si la ruta ya estaba en routes.json, respeta lo editado a mano (nombre,
-// descripcion, dificultad, duracion) y solo recalcula el trazado, la
+// descripcion, dificultad, duracion, fotos) y solo recalcula el trazado, la
 // distancia y el desnivel a partir del GPX.
 
 import { readdir, readFile, writeFile } from 'node:fs/promises';
@@ -87,6 +87,7 @@ for (const archivo of archivos) {
     desnivel_m: Math.round(desnivel),
     duracion_estimada: previa.duracion_estimada || '',
     geojson: { type: 'LineString', coordinates },
+    fotos: previa.fotos || [],
     es_prueba: previa.es_prueba ?? id.includes('prueba'),
   });
   console.log(

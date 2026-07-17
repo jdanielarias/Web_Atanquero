@@ -1,104 +1,5 @@
 [
   {
-    "id": "atanquez-guatapuri-prueba",
-    "nombre": "Atánquez a Guatapurí (ruta de prueba)",
-    "descripcion_corta": "Por el valle del río, de Atánquez al pueblo de Guatapurí. Trazado aproximado de ejemplo.",
-    "dificultad": "moderado",
-    "distancia_km": 7.2,
-    "desnivel_m": 261,
-    "duracion_estimada": "4–5 horas",
-    "geojson": {
-      "type": "LineString",
-      "coordinates": [
-        [
-          -73.3542,
-          10.6996
-        ],
-        [
-          -73.3561,
-          10.7018
-        ],
-        [
-          -73.3585,
-          10.7042
-        ],
-        [
-          -73.3612,
-          10.7061
-        ],
-        [
-          -73.3634,
-          10.7083
-        ],
-        [
-          -73.3651,
-          10.7108
-        ],
-        [
-          -73.3678,
-          10.7129
-        ],
-        [
-          -73.3702,
-          10.7151
-        ],
-        [
-          -73.3721,
-          10.7176
-        ],
-        [
-          -73.3748,
-          10.7198
-        ],
-        [
-          -73.3773,
-          10.7221
-        ],
-        [
-          -73.3791,
-          10.7246
-        ],
-        [
-          -73.3818,
-          10.7268
-        ],
-        [
-          -73.3842,
-          10.7292
-        ],
-        [
-          -73.3861,
-          10.7317
-        ],
-        [
-          -73.3888,
-          10.7339
-        ],
-        [
-          -73.3912,
-          10.7363
-        ],
-        [
-          -73.3931,
-          10.7388
-        ],
-        [
-          -73.3956,
-          10.7412
-        ],
-        [
-          -73.3979,
-          10.7437
-        ],
-        [
-          -73.4001,
-          10.7461
-        ]
-      ]
-    },
-    "es_prueba": true
-  },
-  {
     "id": "ruta-prueba",
     "nombre": "Subida desde Atánquez (ruta de prueba)",
     "descripcion_corta": "Trazado de ejemplo para probar el mapa. Se reemplaza cuando llegue el GPX real del recorrido.",
@@ -191,6 +92,7 @@
         ]
       ]
     },
+    "fotos": [],
     "es_prueba": true
   }
 ]
