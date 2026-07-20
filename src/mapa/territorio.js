@@ -177,7 +177,11 @@ function mostrarRuta(panel, ruta) {
 export function montarMapa(contenedor) {
   const map = new maplibregl.Map({
     container: contenedor,
-    style: 'https://tiles.openfreemap.org/styles/liberty',
+    // "positron" es el estilo minimalista de OpenFreeMap: muchas menos capas
+    // que "liberty", asi que rinde mas liviano (menos trabajo de dibujado). Las
+    // teselas son las mismas (esquema OpenMapTiles), asi que vestirMapa lo
+    // recolorea igual con la paleta del sitio.
+    style: 'https://tiles.openfreemap.org/styles/positron',
     center: [-73.35, 10.7],
     zoom: 12,
     minZoom: 10.5,

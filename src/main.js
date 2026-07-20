@@ -29,10 +29,26 @@ enlaceWa('#waNav', 'Hola Enosh, quiero más información.');
 
 // El mapa del territorio vive en la portada. MapLibre pesa mas que todo el
 // resto del sitio junto, asi que va en su propio pedazo del build y solo se
-// carga en la pagina que tiene el contenedor.
+// carga en la pagina que tiene el contenedor. Ademas no lo arrancamos en el
+// mismo momento del render: esperamos con IntersectionObserver a que el mapa
+// este por entrar en pantalla, para que el titulo, la foto y el texto de la
+// portada pinten primero y MapLibre no compita con ellos por el hilo principal.
+// Mientras tanto el contenedor muestra su fondo de polvo (ver app.css).
 const lienzoMapa = $('#mapa-territorio');
 if (lienzoMapa) {
-  import('./mapa/territorio.js').then((m) => m.montarMapa(lienzoMapa));
+  const arrancarMapa = () =>
+    import('./mapa/territorio.js').then((m) => m.montarMapa(lienzoMapa));
+  const vigia = new IntersectionObserver(
+    (entradas, obs) => {
+      if (entradas.some((e) => e.isIntersecting)) {
+        obs.disconnect();
+        arrancarMapa();
+      }
+    },
+    // Un margen para que arranque un poco antes de asomarse, sin sorpresas.
+    { rootMargin: '300px' },
+  );
+  vigia.observe(lienzoMapa);
 }
 
 const mochilas = cargarMochilas();

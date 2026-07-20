@@ -9,6 +9,10 @@
       content="Recorridos por Atánquez y la Sierra Nevada de Santa Marta con Enosh Arias — El Atánquero Explora. También mochilas kankuamas tejidas a mano en fique y lana de oveja."
     />
     <meta name="theme-color" content="#ece8d8" />
+    <!-- El mapa de la portada trae sus teselas de OpenFreeMap. Abrir la
+         conexion (DNS + TLS) desde ya hace que, cuando el mapa arranque, las
+         teselas lleguen sin la espera del primer apreton de manos. -->
+    <link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin />
   </head>
   <body>
     <!-- Hojas del monte que caen por toda la pagina, detras del contenido. -->
@@ -67,8 +71,18 @@
       <!-- Enosh en el territorio: la foto abre el sitio como un paisaje,
            bajo el cielo que degrada en lo alto del encabezado. -->
       <figure class="limite portada-foto">
+        <!-- La imagen principal (el LCP en movil). Con srcset el telefono baja
+             la version de 800px (~110 KB) y el escritorio la de 1600px.
+             fetchpriority alto porque es lo primero que se debe ver. -->
         <img
           src="./fotos_recorrido/web/enosh-portada.jpg"
+          srcset="
+            ./fotos_recorrido/web/enosh-portada-800.jpg 800w,
+            ./fotos_recorrido/web/enosh-portada.jpg 1600w
+          "
+          sizes="(max-width: 74rem) 92vw, 74rem"
+          fetchpriority="high"
+          decoding="async"
           alt="Enosh Arias saludando con el pulgar arriba frente a la laguna de Kuriwa, entre las montañas de la Sierra Nevada"
         />
         <figcaption>Laguna de Kuriwa, en el corazón de la Sierra</figcaption>
