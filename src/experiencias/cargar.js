@@ -1,7 +1,7 @@
 // Descubre las experiencias solas: cada carpeta dentro de /experiencias es un
 // evento o una salida en la que estuvo El Atánquero. Para sumar una nueva no
-// hay que tocar codigo — se crea la carpeta con su experiencia.json (o la sube
-// el administrador desde el panel /admin/) y aparece sola en la pagina.
+// hay que tocar codigo — se crea la carpeta con su experiencia.json y aparece
+// sola en la pagina.
 //
 //   experiencias/
 //     el-nombre-que-sea/

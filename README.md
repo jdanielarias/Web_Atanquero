@@ -99,8 +99,7 @@ en la carpeta:
 ## Agregar una experiencia (página "Experiencias")
 
 Funciona igual que las mochilas: cada evento o salida es una carpeta dentro de
-`experiencias/`, con sus fotos en carrusel y un cuento corto. También se puede
-crear desde el **panel de administración** (abajo), sin tocar archivos.
+`experiencias/`, con sus fotos en carrusel y un cuento corto.
 
 ```
 experiencias/
@@ -133,45 +132,13 @@ experiencias/
 
 ---
 
-## El panel de administración (`/admin/`)
+## Dónde vive la página
 
-Para actualizar la página sin tocar código: entra a
-`https://el-sitio.vercel.app/admin/`, inicia sesión con GitHub y edita
-experiencias, mochilas y videos con formularios. Al darle **Publicar**, el
-panel hace el commit al repositorio y Vercel despliega solo (tarda 1-2
-minutos en verse).
-
-**El panel es solo del administrador del repo.** Solo puede entrar quien
-tenga permiso de escritura en el repositorio de GitHub — hoy, únicamente el
-dueño. No agregues colaboradores al repo a menos que quieras darles el panel
-también: las novedades de Enosh se reciben por WhatsApp y se suben desde
-aquí.
-
-Es [Decap CMS](https://decapcms.org) con el backend de GitHub. No hay base de
-datos: el contenido sigue siendo estas mismas carpetas con JSON.
-
-### Dejarlo funcionando (una sola vez)
-
-1. **Crear la OAuth App en GitHub** (con la cuenta dueña del repositorio):
-   *Settings → Developer settings → OAuth Apps → New OAuth App*.
-   - **Homepage URL**: la URL del sitio en Vercel (`https://....vercel.app`)
-   - **Authorization callback URL**: la misma URL + `/api/callback`
-   - Al crearla, copia el **Client ID** y genera un **Client Secret**.
-2. **Ponerle las llaves a Vercel**: en el proyecto de Vercel,
-   *Settings → Environment Variables*, agrega:
-   - `OAUTH_GITHUB_CLIENT_ID` = el Client ID
-   - `OAUTH_GITHUB_CLIENT_SECRET` = el Client Secret
-   y vuelve a desplegar (Redeploy) para que las tome.
-
-Si algún día el sitio cambia de dominio (dominio propio), solo hay que
-actualizar las dos URL de la OAuth App en GitHub — el panel se acomoda solo.
-
-- El login vive en `api/auth.js` y `api/callback.js` (funciones de Vercel).
-- La configuración del panel (colecciones y campos) está en
-  `public/admin/index.html`.
-- Para probar el panel en el computador sin tocar GitHub: `npx decap-server`
-  en una terminal, `npm run dev` en otra, y abre
-  `http://localhost:5173/admin/`.
+La página está en un **Worker de Cloudflare**, conectado a este repositorio
+de GitHub: con cada commit a `main`, Cloudflare corre `npm run build` (sale
+en `dist/`) y `npx wrangler deploy`, y se publica solo en
+`https://elatanquero.com`. La configuración está en `wrangler.jsonc`; la
+versión de Node la fija el archivo `.node-version`.
 
 ---
 
@@ -246,8 +213,6 @@ que solo Enosh puede dar.
   y las fotos de la sección "El hilo".
 - `src/experiencias/cargar.js` — lo mismo para `experiencias/`: la página
   de experiencias con su carrusel de fotos.
-- `public/admin/` + `api/` — el panel de administración (Decap CMS) y su
-  login con GitHub. Ver la sección del panel más arriba.
 - `src/css/app.css` — todo el diseño. La paleta sale de materiales reales:
   fique crudo, añil, palo brasil. El único movimiento del sitio está en
   Recorridos: hojas que caen y agua que se mece, en CSS puro.

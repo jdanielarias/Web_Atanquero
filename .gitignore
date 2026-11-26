@@ -7,3 +7,4 @@ fotos_recorrido/*
 .vercel/
 .DS_Store
 *.log
+.wrangler/

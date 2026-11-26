@@ -1,0 +1,12 @@
+// Configuracion del Worker de Cloudflare que publica la pagina.
+// Cloudflare corre `npm run build` y luego `npx wrangler deploy`, que lee
+// este archivo y sube la carpeta dist/ tal cual: la pagina es 100 %
+// estatica, sin codigo que corra en el servidor.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "web-atanquero",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./dist"
+  }
+}

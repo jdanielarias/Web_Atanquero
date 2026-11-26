@@ -401,7 +401,7 @@ if (experienciasLista) {
     const aviso = document.createElement('div');
     aviso.className = 'aviso';
     aviso.append(
-      texto('Todavía no hay experiencias. Crea una carpeta en experiencias/ con su experiencia.json — mira el README — o súbela desde el panel /admin/.'),
+      texto('Todavía no hay experiencias. Crea una carpeta en experiencias/ con su experiencia.json — mira el README.'),
     );
     experienciasLista.append(aviso);
   } else {
