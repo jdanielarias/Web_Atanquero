@@ -1,4 +1,6 @@
-import '@fontsource-variable/bricolage-grotesque';
+// La variante con eje de ancho (wdth): el CSS pide la letra condensada en
+// todos los titulos, y el archivo por defecto solo trae el peso.
+import '@fontsource-variable/bricolage-grotesque/wdth.css';
 import '@fontsource-variable/karla';
 import './css/app.css';
 
@@ -24,7 +26,11 @@ const enlaceWa = (sel, mensaje) => {
   if (el) el.href = wa(mensaje);
 };
 enlaceWa('#waTour', 'Hola Enosh, quiero cuadrar un recorrido por Atánquez.');
+enlaceWa('#waPlanA', 'Hola Enosh, quiero el plan A: Atánquez y el río Guatapurí o Chemesquemena.');
+enlaceWa('#waPlanB', 'Hola Enosh, quiero el plan B: Atánquez y Pontón.');
+enlaceWa('#waPlanC', 'Hola Enosh, quiero el plan C: Atánquez y Mojao o La Mina.');
 enlaceWa('#waPie', 'Hola Enosh, quiero más información.');
+enlaceWa('#waHero', 'Hola Enosh, quiero caminar el territorio kankuamo contigo.');
 enlaceWa('#waNav', 'Hola Enosh, quiero más información.');
 
 // El mapa del territorio vive en la portada. MapLibre pesa mas que todo el
@@ -399,6 +405,31 @@ if (experienciasLista) {
     );
     experienciasLista.append(aviso);
   } else {
-    experienciasLista.append(...experiencias.map(tarjetaExperiencia));
+    // En la principal solo van las mas recientes (data-max); si hay mas,
+    // aparece el boton hacia experiencias.html con el archivo completo.
+    const max = Number(experienciasLista.dataset.max) || Infinity;
+    experienciasLista.append(...experiencias.slice(0, max).map(tarjetaExperiencia));
+    const todas = $('#experiencias-todas');
+    if (todas && experiencias.length > max) todas.hidden = false;
   }
 }
+
+// --- saltos que llegan desde otra pagina ---------------------------------
+// Al venir de mochilas.html o experiencias.html a index.html#seccion, el
+// salto se hace aqui, de golpe y ya con las listas de arriba armadas. Se
+// repite una vez al terminar de cargar (fuentes e imagenes pueden mover la
+// seccion), salvo que la persona ya haya empezado a moverse por la pagina.
+// Solo despues se enciende el desplazamiento suave para los clics del menu.
+const destino = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+if (destino) {
+  let seMovio = false;
+  const marcar = () => (seMovio = true);
+  for (const ev of ['wheel', 'touchstart', 'keydown']) {
+    addEventListener(ev, marcar, { once: true, passive: true });
+  }
+  destino.scrollIntoView();
+  addEventListener('load', () => {
+    if (!seMovio) destino.scrollIntoView();
+  });
+}
+requestAnimationFrame(() => document.documentElement.classList.add('suave'));

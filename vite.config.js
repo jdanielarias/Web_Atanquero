@@ -39,13 +39,14 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsInlineLimit: 0,
-    // Tres paginas: la principal, mochilas y experiencias. Sin esto vite solo
-    // compila index.html y las demas no llegarian al build.
+    // Cuatro paginas, una por boton del menu. Sin esto vite solo compila
+    // index.html y las demas no llegarian al build.
     rollupOptions: {
       input: {
         principal: resolve(import.meta.dirname, 'index.html'),
+        territorio: resolve(import.meta.dirname, 'territorio.html'),
         mochilas: resolve(import.meta.dirname, 'mochilas.html'),
-        experiencias: resolve(import.meta.dirname, 'experiencias.html'),
+        videos: resolve(import.meta.dirname, 'videos.html'),
       },
     },
   },

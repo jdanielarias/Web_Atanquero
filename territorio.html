@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>El territorio — El Atánquero Explora</title>
+    <meta
+      name="description"
+      content="Las seis comunidades del territorio kankuamo, cómo llegar a Atánquez desde Valledupar, lo que se vive en un recorrido y los acuerdos para respetar el territorio."
+    />
+    <meta name="theme-color" content="#f2ede2" />
+    <!-- El mapa de esta pagina trae sus teselas de OpenFreeMap: abrir la
+         conexion desde ya hace que lleguen sin la espera del primer saludo. -->
+    <link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin />
+  </head>
+  <body>
+    <!-- Hojas del monte que caen por toda la pagina, detras del contenido. -->
+    <div class="hojas" aria-hidden="true">
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+    </div>
+
+    <a class="saltar" href="#lugares">Saltar al contenido</a>
+
+    <nav class="nav">
+      <a class="nav-marca" href="./index.html">
+        <img class="nav-logo" src="./fotos_recorrido/web/enosh-logo.webp" alt="" />
+        El Atánquero Explora
+      </a>
+      <ul class="nav-lista">
+        <li><a href="./index.html">Inicio</a></li>
+        <li><a href="./territorio.html" aria-current="page">Territorio</a></li>
+        <li><a href="./mochilas.html">Mochilas</a></li>
+        <li><a href="./videos.html">Videos</a></li>
+      </ul>
+      <a class="boton solido nav-contacto" id="waNav" href="#" target="_blank" rel="noopener">Contáctame</a>
+    </nav>
+
+    <!-- ===================== LUGARES ===================== -->
+    <section class="seccion lugares" id="lugares">
+      <div class="limite">
+        <div class="rotulo">
+          <span class="nombre">Lugares</span>
+          <span class="regla"></span>
+        </div>
+        <h1 class="titulo">Seis comunidades, <em>seis destinos</em></h1>
+        <div class="lugares-reja">
+          <ul class="lugares-lista">
+            <li>
+              <img src="./fotos_recorrido/web/atanquez.webp" alt="Atánquez visto desde arriba, entre las montañas" loading="lazy" />
+              <span>Atánquez</span>
+            </li>
+            <li>
+              <img src="./fotos_recorrido/web/guatapuri-640.webp" alt="Un cerro de la Sierra sobre un pozo del río, en Guatapurí" loading="lazy" />
+              <span>Guatapurí</span>
+            </li>
+            <li>
+              <img src="./fotos_recorrido/web/chemesquemena.webp" alt="Un pozo de agua clara entre piedras, en Chemesquemena" loading="lazy" />
+              <span>Chemesquemena</span>
+            </li>
+            <li>
+              <img src="./fotos_recorrido/web/ponton-800.webp" alt="El río de Pontón bajando en cascadas entre lajas de piedra" loading="lazy" />
+              <span>Pontón</span>
+            </li>
+            <li>
+              <img src="./fotos_recorrido/web/mojao-640.webp" alt="El río bajo un puente amarillo, en Mojao" loading="lazy" />
+              <span>Mojao</span>
+            </li>
+            <li>
+              <img src="./fotos_recorrido/web/la-mina-640.webp" alt="El río Badillo bajando entre piedras grandes, bajo un cielo de nubes, en La Mina" loading="lazy" />
+              <span>La Mina</span>
+            </li>
+          </ul>
+
+          <!-- El mapa: la carretera de Valledupar a Atánquez. Cuando haya
+               GPX de las caminatas, se dibujan encima. -->
+          <div class="portada-mapa">
+            <div
+              id="mapa-territorio"
+              aria-label="Mapa con la carretera de Valledupar a Atánquez"
+            ></div>
+            <p class="portada-mapa-pie">Cómo llegar: de Valledupar a Atánquez, unos 50 km por carretera</p>
+          </div>
+        </div>
+
+        <dl class="portada-datos banda">
+          <div>
+            <dt>Origen</dt>
+            <dd>
+              Atánquez
+              <small>Pueblo de la Sierra Nevada, a unos 50 km al norte de Valledupar: unos seis
+                mil habitantes y capital del resguardo indígena kankuamo</small>
+            </dd>
+          </div>
+          <div>
+            <dt>Territorio</dt>
+            <dd>
+              Sierra Nevada de Santa Marta
+              <small>El corazón del mundo, donde habitan sus cuatro pueblos: koguis, kankuamos,
+                wiwas y arhuacos</small>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ===================== FOGÓN ===================== -->
+    <!-- La cocina del territorio, como antojo: fotos de comida kankuama con
+         el texto del portafolio. No son el menu de ningun recorrido. -->
+    <section class="seccion" id="fogon">
+      <div class="limite fogon-reja">
+        <div>
+          <div class="rotulo">
+            <span class="nombre">Fogón</span>
+            <span class="regla"></span>
+          </div>
+          <h2 class="titulo">Fogón y memoria <em>kankuama.</em></h2>
+          <p class="parrafo" style="margin-top: 1.1rem">
+            En el territorio kankuamo, las manos de nuestras abuelas, mayoras y madres guardan
+            el secreto de un sazón inigualable. Son expertas en preparar las comidas
+            tradicionales que han pasado de generación en generación, cocinadas a fuego de
+            fogón y con productos de nuestra tierra.
+          </p>
+          <p class="parrafo">
+            Cada plato lleva historia, tradición y mucho amor. ¡Quien prueba nuestra comida
+            queda encantado y siempre quiere volver!
+          </p>
+        </div>
+        <ul class="fogon-fotos">
+          <li><img src="./fotos_recorrido/web/comida-2.webp" alt="Bollos de maíz, suero en una totuma y trocitos fritos sobre una hoja de plátano" loading="lazy" decoding="async" /></li>
+          <li><img src="./fotos_recorrido/web/comida-3.webp" alt="Bollos de maíz y una torta frita sobre una hoja de plátano" loading="lazy" decoding="async" /></li>
+          <li><img src="./fotos_recorrido/web/comida-4.webp" alt="Queso fresco en cubos y trozos de dulce sobre una hoja de plátano" loading="lazy" decoding="async" /></li>
+          <li><img src="./fotos_recorrido/web/comida-1.webp" alt="Yuca cocida con un guiso, en un plato de flores azules" loading="lazy" decoding="async" /></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== 02 · GASA (recorridos) ===================== -->
+    <section class="seccion" id="gasa">
+      <div class="limite">
+        <div class="rotulo">
+          <span class="paso" aria-hidden="true">
+            <svg viewBox="-15 -13 30 27">
+              <circle cx="0" cy="0" r="2.8" fill="var(--brasil)" />
+              <path
+                fill="none"
+                stroke="var(--brasil)"
+                stroke-width="2"
+                stroke-linecap="round"
+                d="M0 0 A4 4 0 0 1 8 0"
+              />
+            </svg>
+          </span>
+          <span class="nombre">Gasa</span>
+          <span class="regla"></span>
+        </div>
+        <h2 class="titulo">Un recorrido no se mira: <em>se lleva puesto</em></h2>
+        <p class="parrafo" style="margin-top: 1.1rem">
+          La gasa es la correa de la mochila: se teje aparte, con otra puntada, y es la parte
+          que toca el cuerpo — la que la mantiene cerca, al hombro. Un recorrido es igual: no es
+          ver Atánquez desde afuera, es llevarlo puesto — un momento que se queda contigo.
+        </p>
+
+        <div class="tours">
+          <article class="tour">
+            <figure class="tour-foto">
+              <img
+                src="./fotos_recorrido/web/atanquez.webp"
+                alt="Atánquez visto desde arriba, entre las montañas de la Sierra Nevada"
+                loading="lazy"
+              />
+            </figure>
+            <div class="tour-texto">
+              <span class="quien">Una mañana</span>
+              <h3>Caminata por Atánquez</h3>
+              <p>
+                Calles empedradas entre dos ríos, el Chiscuinlla y el Candela. Caminamos despacio,
+                probamos la panela atanquera y el pueblo se va contando solo.
+              </p>
+            </div>
+          </article>
+          <article class="tour">
+            <figure class="tour-foto">
+              <img
+                src="./fotos_recorrido/web/rio-guatapuri.webp"
+                alt="El río Guatapurí bajando entre piedras grandes, con el agua clara"
+                loading="lazy"
+                style="object-position: center 42%"
+              />
+            </figure>
+            <div class="tour-texto">
+              <span class="quien">Una tarde</span>
+              <h3>Recorrido por el río Guatapurí</h3>
+              <p>
+                Baja directo de la Sierra, con el agua fría y cristalina. Caminamos su orilla,
+                nos damos un baño y entendemos por qué es un río sagrado.
+              </p>
+            </div>
+          </article>
+          <article class="tour">
+            <figure class="tour-foto">
+              <img
+                src="./fotos_recorrido/web/mayores.webp"
+                alt="Una casa ceremonial de techo de palma, entre los árboles del monte"
+                loading="lazy"
+                style="object-position: center bottom"
+              />
+            </figure>
+            <div class="tour-texto">
+              <span class="quien">Al caer el sol</span>
+              <h3>La palabra mayor</h3>
+              <p>
+                Nos sentamos a escuchar a los mayores: la cosmovisión, la resistencia y la memoria
+                del pueblo kankuamo, contadas por quien las vivió.
+              </p>
+            </div>
+          </article>
+          <article class="tour">
+            <figure class="tour-foto">
+              <img
+                src="./fotos_recorrido/web/corpus-christi.webp"
+                alt="Danzantes del Corpus Christi con sus cintas de colores llenando la calle"
+                loading="lazy"
+                style="object-position: center 68%"
+              />
+            </figure>
+            <div class="tour-texto">
+              <span class="quien">En junio</span>
+              <h3>Corpus Christi</h3>
+              <p>
+                La fiesta grande de mi pueblo: diablos de espejos y campanas, negros del palenque y
+                cucambas danzando en la calle la pelea del bien y el mal.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <div class="rio">
+          <!-- El agua: capas de corriente que fluyen a distintas velocidades bajo
+               un filtro de turbulencia que las ondula, como el rio entre piedras. -->
+          <svg class="rio-agua" viewBox="0 0 600 64" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="aguaCuerpo" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#bcd2ec" stop-opacity="0" />
+                <stop offset="0.45" stop-color="#bcd2ec" stop-opacity="0.1" />
+                <stop offset="1" stop-color="#bcd2ec" stop-opacity="0.26" />
+              </linearGradient>
+              <filter id="aguaViva" x="-3%" y="-40%" width="106%" height="180%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.012 0.085" numOctaves="2" seed="7" result="ruido" />
+                <feDisplacementMap in="SourceGraphic" in2="ruido" scale="7" xChannelSelector="R" yChannelSelector="G" />
+              </filter>
+            </defs>
+            <g filter="url(#aguaViva)">
+              <path class="agua-cuerpo" fill="url(#aguaCuerpo)"
+                d="M0 10 q50 -3 100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 L1200 64 L0 64 Z" />
+              <g fill="none" stroke="#e9e4d2" stroke-linecap="round">
+                <path class="agua-honda" stroke-width="1.7" stroke-opacity="0.15" stroke-dasharray="26 20"
+                  d="M0 48 q50 -4 100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0" />
+                <path class="agua-honda" stroke-width="1.6" stroke-opacity="0.12" stroke-dasharray="18 22"
+                  d="M0 56 q37.5 -3 75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0" />
+                <path class="agua-media" stroke-width="1.5" stroke-opacity="0.22" stroke-dasharray="16 12"
+                  d="M0 31 q30 -3 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" />
+                <path class="agua-media" stroke-width="1.6" stroke-opacity="0.18" stroke-dasharray="22 16"
+                  d="M0 38 q37.5 -3.5 75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0" />
+                <path class="agua-vivaz" stroke-width="1.5" stroke-opacity="0.34" stroke-dasharray="14 10"
+                  d="M0 16 q25 -3 50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0" />
+                <path class="agua-vivaz" stroke-width="1.4" stroke-opacity="0.26" stroke-dasharray="10 14"
+                  d="M0 22 q30 -2.5 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" />
+              </g>
+              <g fill="none" stroke="#ffffff" stroke-linecap="round">
+                <path class="agua-destello" stroke-width="2.4" stroke-opacity="0.55" stroke-dasharray="7 118"
+                  d="M0 19 q25 -2 50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0" />
+                <path class="agua-destello" stroke-width="2" stroke-opacity="0.4" stroke-dasharray="9 96"
+                  d="M0 27 q30 -2 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" />
+              </g>
+            </g>
+          </svg>
+          <div class="rio-texto">
+            <h3>¿Cuándo vienes a la Sierra?</h3>
+            <p>
+              Un recorrido se cuadra conversando: cuéntame cuándo vienes, cuántos son y qué
+              quieres vivir, y yo armo el camino. También a la medida, para universidades y
+              colectivos.
+            </p>
+          </div>
+          <a class="boton solido grande ondas" id="waTour" href="#">Agendemos tu recorrido</a>
+          <span class="manantial" aria-hidden="true"></span>
+          <span class="manantial" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ACUERDOS ===================== -->
+    <section class="seccion" id="acuerdos">
+      <div class="limite">
+        <div class="rotulo">
+          <span class="nombre">Acuerdos</span>
+          <span class="regla"></span>
+        </div>
+      </div>
+      <div class="limite acuerdos-reja">
+        <div>
+          <h2 class="titulo">Acuerdos para <em>respetar el territorio</em></h2>
+          <p class="parrafo" style="margin-top: 1.1rem">
+            Más que conocer paisajes, queremos aprender a cuidar la Madre Tierra, respetar el
+            agua y proteger la vida. Por eso cada recorrido se camina con estos acuerdos.
+          </p>
+        </div>
+        <ol class="acuerdos">
+          <li>
+            <p><b>Vas acompañado.</b> Cada recorrido lo guía un anfitrión y conocedor del
+            territorio, con el respaldo y la orientación de los mayores y las autoridades.</p>
+          </li>
+          <li>
+            <p><b>Todo se concerta.</b> Las experiencias se acuerdan con los cabildos y
+            autoridades de cada comunidad, respetando sus creencias, sus espacios sagrados y
+            sus orientaciones espirituales.</p>
+          </li>
+          <li>
+            <p><b>No todo se fotografía.</b> Hay lugares donde no está permitido tomar fotos ni
+            grabar.</p>
+          </li>
+          <li>
+            <p><b>El agua tiene sus días.</b> Hay días y espacios en los que no se puede entrar
+            al agua.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== 05 · BOCA ===================== -->
+    <section class="seccion" id="boca">
+      <div class="limite">
+        <div class="rotulo">
+          <span class="paso" aria-hidden="true">
+            <svg viewBox="-15 -13 30 27">
+              <circle cx="0" cy="0" r="2.8" fill="var(--brasil)" />
+              <path
+                fill="none"
+                stroke="var(--brasil)"
+                stroke-width="2"
+                stroke-linecap="round"
+                d="M0 0 A4 4 0 0 1 8 0 A6.5 6.5 0 0 1 -5 0 A9 9 0 0 1 13 0 A11.5 11.5 0 0 1 -10 0"
+              />
+            </svg>
+          </span>
+          <span class="nombre">Boca</span>
+          <span class="regla"></span>
+        </div>
+
+        <div class="cierre-reja">
+          <div>
+            <h2 class="titulo">La conversación <em>queda abierta</em></h2>
+            <p class="parrafo" style="margin-top: 1.1rem">
+              Escríbeme si quieres cuadrar un recorrido o preguntar por una mochila.
+            </p>
+            <div class="redes">
+              <a href="https://www.youtube.com/@elatanqueroexplora" target="_blank" rel="noopener">YouTube</a>
+              <a href="https://www.instagram.com/elatanquero" target="_blank" rel="noopener">Instagram</a>
+              <a href="https://www.tiktok.com/@elatanquero" target="_blank" rel="noopener">TikTok</a>
+              <a href="https://www.facebook.com/elatanquero" target="_blank" rel="noopener">Facebook</a>
+              <a href="https://x.com/elatanquero" target="_blank" rel="noopener">X</a>
+            </div>
+          </div>
+          <div class="cierre-firma">
+            <img
+              class="cierre-logo"
+              src="./fotos_recorrido/web/enosh-logo.webp"
+              alt="Logo de El Atánquero Explora"
+              loading="lazy"
+            />
+            <a class="boton solido grande" id="waPie" href="#">Escríbeme por WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="pie">
+          <span>El Atánquero Explora · Atánquez, Sierra Nevada de Santa Marta</span>
+          <span>© 2026</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- La Sierra: tres cordones. El lejano, azuloso, lleva los picos
+         nevados — los dos del centro son los gemelos, Colón y Bolívar.
+         Cierra la página entera como un horizonte, al pie de todo. -->
+    <svg class="sierra" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
+      <path
+        fill="var(--anil)"
+        opacity="0.3"
+        d="M0 168 L90 120 L150 138 L230 84 L300 128 L380 96 L450 130 L520 60 L575 105 L610 78 L680 125 L760 92 L830 130 L920 70 L1000 126 L1080 100 L1200 150 V200 H0 Z"
+      />
+      <path fill="var(--papel-alto)" d="M204 106 L230 84 L255 105 L243 98 L231 110 L217 100 Z" />
+      <path fill="var(--papel-alto)" d="M488 88 L520 60 L549 86 L536 78 L524 92 L508 80 L497 90 Z" />
+      <path fill="var(--papel-alto)" d="M584 100 L610 78 L634 99 L622 92 L610 104 L596 94 Z" />
+      <path fill="var(--papel-alto)" d="M892 94 L920 70 L947 93 L934 86 L921 99 L906 89 Z" />
+      <path
+        fill="var(--fique)"
+        opacity="0.55"
+        d="M0 200 V150 L120 118 L240 152 L360 112 L480 150 L600 118 L720 154 L840 120 L980 156 L1100 130 L1200 152 V200 Z"
+      />
+      <path
+        fill="var(--monte)"
+        opacity="0.3"
+        d="M0 200 V172 L150 150 L320 176 L500 148 L680 178 L860 152 L1040 180 L1200 160 V200 Z"
+      />
+    </svg>
+
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

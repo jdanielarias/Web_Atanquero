@@ -9,26 +9,38 @@
    =========================================================================== */
 
 :root {
-  --polvo: #ded9c2;
-  --papel: #ece8d8;
-  --papel-alto: #f5f2e6;
-  --tinta: #1d1a12;
-  --tinta-media: #57513e;
-  /* Oscurecido de #837c62: como texto pequeño no llegaba al 4.5:1 de WCAG. */
-  --tinta-suave: #6b6450;
+  /* El estilo nuevo: crema, verde oscuro y dorado. Fotos grandes, titulos
+     gruesos en dos tonos (tinta + dorado) y poco adorno.
+     Psicologia del color, en corto: el crema y el verde hondo dicen tierra,
+     monte y calma; el dorado es el sol y el maiz — calido sin ser alarma,
+     por eso es el color de los botones y de la segunda parte de cada
+     titulo. Nada de rojos: no hay prisa que comunicar. */
+  --papel: #f2ede2;
+  --papel-alto: #faf7f0;
+  --polvo: #e8e1d3;
+  --tinta: #1e211f;
+  --tinta-media: #474a45;
+  --tinta-suave: #5c5f59;
 
-  /* Psicologia del color, en corto: la base tierra dice arraigo y tradicion;
-     el añil (confianza, calma) se reserva para el agua y los datos; el barro
-     (calidez, accion, arcilla de artesano) es SOLO para los botones de
-     accion — asi son lo unico caliente que salta en la pagina. */
-  --anil: #2c4a72;
-  --barro: #9c4520;
-  --brasil: #8b3a4a;
+  --verde: #2b3a2a;
+  --dorado: #d29f3a;
+  /* El dorado claro no llega a 3:1 sobre el crema: este, mas hondo, es el
+     que va cuando el dorado es texto sobre fondo claro. */
+  --dorado-texto: #94681a;
+
+  /* Los nombres viejos apuntan a la paleta nueva, para que todo lo que ya
+     los usaba (mochilas, experiencias, mapa) cambie solo. */
+  --anil: var(--verde);
+  --barro: var(--dorado);
+  --brasil: var(--dorado-texto);
   --monte: #4c5f3c;
   --fique: #a8996a;
-  /* El fique de arriba es para decorar (hilos, hojas); este, mas hondo, es
-     para cuando el fique es texto — el claro no daba ni 3:1. */
-  --fique-texto: #857644;
+  --fique-texto: #7c6d40;
+  --achiote: var(--dorado-texto);
+  --monte-hondo: var(--verde);
+  --anil-vivo: var(--verde);
+  --maiz: var(--dorado);
+  --batatilla: var(--verde);
 
   --linea: rgba(29, 26, 18, 0.15);
   --linea-fuerte: rgba(29, 26, 18, 0.28);
@@ -48,8 +60,16 @@
 }
 
 html {
-  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+}
+/* El desplazamiento suave se enciende desde src/main.js con la clase
+   .suave, despues de cargar: si estuviera desde el principio, al llegar desde
+   otra pagina a una seccion (index.html#experiencias) el salto se anima
+   mientras la pagina todavia se arma y se queda arriba. */
+html.suave {
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -72,6 +92,12 @@ a {
 :focus-visible {
   outline: 2px solid var(--anil);
   outline-offset: 3px;
+}
+
+/* Lo que el HTML marca como oculto queda oculto, aunque su clase (un
+   .boton, por ejemplo) le ponga otro display. */
+[hidden] {
+  display: none !important;
 }
 
 .sr {
@@ -182,11 +208,11 @@ a {
   height: 1.35rem;
 }
 .rotulo .nombre {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--tinta-suave);
+  color: var(--dorado-texto);
 }
 .rotulo .regla {
   flex: 1;
@@ -198,20 +224,21 @@ a {
   );
 }
 
+/* Los titulos: gruesos, apretados y en dos tonos. La primera parte en
+   tinta y la segunda (el <em>) en dorado. */
 .titulo {
   font-family: var(--display);
-  font-variation-settings: 'wdth' 85, 'opsz' 72;
-  font-weight: 700;
-  font-size: clamp(1.9rem, 4.4vw, 3.2rem);
-  line-height: 0.98;
-  letter-spacing: -0.025em;
-  max-width: 18ch;
+  font-variation-settings: 'wdth' 100, 'opsz' 72;
+  font-weight: 800;
+  font-size: clamp(2.1rem, 4.8vw, 3.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  max-width: 16ch;
   text-wrap: balance;
 }
 .titulo em {
   font-style: normal;
-  font-weight: 300;
-  color: var(--brasil);
+  color: var(--dorado-texto);
 }
 
 .parrafo {
@@ -249,18 +276,25 @@ a {
     margin-inline: auto;
   }
 }
+/* El retrato: derecho y limpio, con su pie encima de la foto. */
 .chipire-retrato {
+  position: relative;
   margin: 0;
 }
 .chipire-retrato img {
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  border: 1px solid var(--linea);
 }
 .chipire-retrato figcaption {
-  margin-top: 0.6rem;
-  text-align: center;
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  margin: 0;
+  padding: 0.35rem 0.65rem;
+  background: rgba(20, 22, 20, 0.72);
+  color: var(--papel-alto) !important;
+  text-align: left;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -286,10 +320,14 @@ a {
 }
 /* La guia (dentro de la mascara) es la que se dibuja; el hilo punteado solo
    se desvanece al final del ciclo. Las dos duran lo mismo para ir a compas. */
+/* Sin animacion, el chipire queda ya tejido (dashoffset 0); el tejido en
+   movimiento solo corre si la persona no pidio reducir el movimiento. */
 .chipire-guia {
   stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: tejer 10s linear infinite;
+  stroke-dashoffset: 0;
+  @media (prefers-reduced-motion: no-preference) {
+    animation: tejer 10s linear infinite;
+  }
 }
 @keyframes tejer {
   0%   { stroke-dashoffset: 1000; }
@@ -298,7 +336,9 @@ a {
   100% { stroke-dashoffset: 1000; }
 }
 .chipire-hilo {
-  animation: apagar-hilo 10s linear infinite;
+  @media (prefers-reduced-motion: no-preference) {
+    animation: apagar-hilo 10s linear infinite;
+  }
 }
 @keyframes apagar-hilo {
   0%   { opacity: 1; }
@@ -374,13 +414,31 @@ a {
   .nav-contacto {
     margin-left: auto;
   }
+  /* Siete botones no caben en una fila en todos los celulares: si no
+     alcanza, el menu pasa a una segunda fila en vez de salirse de la
+     pantalla. */
   .nav-lista {
     order: 3;
     flex-basis: 100%;
-    justify-content: space-between;
-    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.35rem 1.05rem;
   }
   .nav-lista a {
+    font-size: 0.78rem;
+  }
+}
+/* En los celulares mas angostos la marca se achica para que el boton de
+   contacto quepa a su lado y la barra no ocupe tres filas. */
+@media (max-width: 25rem) {
+  .nav-marca {
+    font-size: 0.92rem;
+  }
+  .nav-logo {
+    width: 2rem;
+  }
+  .nav-contacto {
+    padding: 0.4rem 0.7rem;
     font-size: 0.78rem;
   }
 }
@@ -388,12 +446,6 @@ a {
 /* ===========================================================================
    PORTADA
    =========================================================================== */
-.portada {
-  padding: clamp(3rem, 8vw, 6rem) var(--marco) clamp(2.5rem, 6vw, 4rem);
-  /* El cielo: un azul claro arriba que degrada hacia el papel, como el
-     amanecer sobre el territorio antes de que empiece el contenido. */
-  background: linear-gradient(180deg, #bcd4ee 0%, #d3e3f3 26%, var(--papel) 62%);
-}
 .sierra {
   display: block;
   /* Ahora cierra la pagina entera: va de borde a borde, al ras del pie.
@@ -403,44 +455,378 @@ a {
   margin: calc(1rem - clamp(3.5rem, 8vw, 6.5rem)) 0 0;
   height: clamp(5rem, 14vw, 10rem);
 }
-.portada-reja {
-  display: grid;
-  /* Mitad texto, mitad mapa: el mapa es protagonista, no un dato al margen. */
-  grid-template-columns: 1fr 1.05fr;
-  gap: clamp(1.5rem, 5vw, 4rem);
-  align-items: end;
+/* El kicker: la etiqueta chiquita, dorada y espaciada que va encima de
+   cada titulo. */
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dorado-texto);
+  margin-bottom: 0.9rem;
 }
-@media (max-width: 52rem) {
-  .portada-reja {
-    grid-template-columns: 1fr;
-    align-items: start;
+
+/* ===========================================================================
+   PORTADA — la foto a pantalla completa con el titulo encima
+   =========================================================================== */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: calc(100svh - var(--alto-nav, 4rem));
+  padding: clamp(6rem, 14vw, 9rem) var(--marco) clamp(3.5rem, 8vw, 5.5rem);
+  color: var(--papel-alto);
+  background: var(--verde);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-foto {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* La persona con la camara esta a la derecha: en pantallas angostas el
+     recorte la sigue a ella y no al cielo vacio. */
+  object-position: 68% 55%;
+}
+/* La sombra que deja leer el blanco: mas oscura abajo a la izquierda, donde
+   va el texto. */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(20, 22, 20, 0.62) 0%, rgba(20, 22, 20, 0.15) 70%),
+    linear-gradient(0deg, rgba(20, 22, 20, 0.7) 0%, rgba(20, 22, 20, 0) 60%);
+}
+.hero-texto {
+  width: 100%;
+}
+.hero .kicker {
+  color: var(--dorado);
+}
+.hero h1 {
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 100, 'opsz' 96;
+  font-weight: 800;
+  font-size: clamp(2.9rem, 8.5vw, 6.2rem);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+  max-width: 11ch;
+  text-wrap: balance;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--dorado);
+}
+.hero-bajada {
+  margin-top: 1.4rem;
+  max-width: 44ch;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
+  color: rgba(250, 247, 240, 0.88);
+}
+.hero-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+.hero-credito {
+  position: absolute;
+  right: var(--marco);
+  bottom: 1.2rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(250, 247, 240, 0.75);
+}
+/* En el celular la foto queda vertical y la persona cae en la mitad de
+   abajo: el texto sube al cielo, que esta vacio, y la sombra se pasa arriba
+   para que el blanco se lea sobre el cielo claro. */
+@media (max-width: 44rem) {
+  .hero {
+    align-items: flex-start;
+    padding-top: clamp(2.5rem, 10vw, 4rem);
+    /* Mas alta que la pantalla: asi la foto crece y la persona baja hasta
+       quedar por debajo de los botones. */
+    min-height: max(120svh, 64rem);
+  }
+  .hero::before {
+    background: linear-gradient(180deg, rgba(20, 22, 20, 0.72) 0%, rgba(20, 22, 20, 0.45) 55%, rgba(20, 22, 20, 0) 80%);
   }
 }
-.portada h1 {
+
+/* La invitacion: una frase grande y centrada, como un respiro. */
+.invitacion p {
+  max-width: 46rem;
+  text-align: center;
   font-family: var(--display);
-  font-variation-settings: 'wdth' 85, 'opsz' 96;
+  font-variation-settings: 'wdth' 100, 'opsz' 32;
+  font-weight: 500;
+  font-size: clamp(1.25rem, 1.05rem + 1vw, 1.75rem);
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: var(--tinta);
+  text-wrap: balance;
+}
+
+/* ===========================================================================
+   RUTAS — cada plan mitad foto, mitad texto, alternando el lado
+   =========================================================================== */
+.rutas {
+  scroll-margin-top: var(--alto-nav, 3.5rem);
+}
+.rutas-cabeza {
+  padding: 0 var(--marco) clamp(2rem, 5vw, 3.5rem);
+  box-sizing: content-box;
+}
+.rutas-cabeza .parrafo {
+  margin-top: 1rem;
+}
+.ruta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--papel-alto);
+  scroll-margin-top: var(--alto-nav, 3.5rem);
+}
+.ruta:nth-of-type(even) {
+  background: var(--polvo);
+}
+.ruta:nth-of-type(even) .ruta-foto {
+  order: 2;
+}
+.ruta-foto {
+  position: relative;
+  margin: 0;
+  min-height: 26rem;
+}
+.ruta-foto img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ruta-foto figcaption {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  /* Mas chico que antes: el mapa del territorio comparte la portada y el
-     titulo no necesita gritar. */
-  font-size: clamp(2.2rem, 5.5vw, 3.8rem);
-  line-height: 0.92;
-  letter-spacing: -0.03em;
-  margin-bottom: 1rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--papel-alto);
+  background: rgba(20, 22, 20, 0.72);
 }
-.portada h1 span {
+.ruta-texto {
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4.5rem);
+  align-self: center;
+  max-width: 36rem;
+}
+.ruta-letra {
+  display: inline-grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  font-family: var(--display);
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  color: var(--tinta);
+  background: var(--dorado);
+}
+.ruta h3 {
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 100, 'opsz' 72;
+  font-weight: 800;
+  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+.ruta h3 em {
+  font-style: normal;
+  color: var(--dorado-texto);
+}
+
+/* El camino: un pespunte que baja y un nudo en cada parada. */
+.paradas {
+  list-style: none;
+  position: relative;
+  display: grid;
+  gap: 0.85rem;
+  margin: 1.8rem 0 2rem;
+  padding-left: 1.9rem;
+}
+.paradas::before {
+  content: '';
+  position: absolute;
+  left: 0.36rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 2px;
+  background-image: repeating-linear-gradient(
+    180deg,
+    var(--linea-fuerte) 0 7px,
+    transparent 7px 13px
+  );
+}
+/* Cada parada es solo su nombre, en letra de titulo. */
+.paradas li {
+  position: relative;
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 100, 'opsz' 20;
+  font-weight: 700;
+  font-size: 1.08rem;
+  line-height: 1.3;
+  color: var(--tinta);
+}
+.paradas li::before {
+  content: '';
+  position: absolute;
+  left: -1.9rem;
+  top: 0.28rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--papel-alto);
+  border: 2px solid var(--tinta);
+}
+/* La ultima parada es la llegada: el nudo va lleno, en dorado. */
+.paradas li:last-child::before {
+  background: var(--dorado);
+  border-color: var(--dorado);
+}
+.paradas b {
   display: block;
-  font-weight: 300;
-  color: var(--fique-texto);
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 100, 'opsz' 20;
+  font-weight: 700;
+  font-size: 1.08rem;
+  line-height: 1.2;
+  color: var(--tinta);
 }
-.portada-sub {
-  max-width: 42ch;
+
+@media (max-width: 52rem) {
+  .ruta {
+    grid-template-columns: 1fr;
+  }
+  .ruta:nth-of-type(even) .ruta-foto {
+    order: 0;
+  }
+  .ruta-foto {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* ===========================================================================
+   LUGARES — las seis comunidades, con el mapa al lado
+   =========================================================================== */
+.lugares-reja {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+.lugares-lista {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+}
+.lugares-lista li {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--polvo);
+}
+.lugares-lista img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* El nombre sobre la foto, en una etiqueta oscura y discreta. */
+.lugares-lista span {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--papel-alto);
+  background: rgba(20, 22, 20, 0.72);
+}
+@media (max-width: 52rem) {
+  .lugares-reja {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 30rem) {
+  .lugares-lista {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ===========================================================================
+   ACUERDOS
+   =========================================================================== */
+.acuerdos-reja {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+}
+#acuerdos {
+  padding-top: clamp(2.5rem, 6vw, 4.5rem);
+}
+.acuerdos {
+  list-style: none;
+  counter-reset: acuerdo;
+  border-top: 2px solid var(--tinta);
+}
+.acuerdos li {
+  counter-increment: acuerdo;
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid var(--linea-fuerte);
   color: var(--tinta-media);
-  font-size: 1.05rem;
 }
+.acuerdos li::before {
+  content: counter(acuerdo);
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 75, 'opsz' 48;
+  font-weight: 800;
+  font-size: 1.9rem;
+  line-height: 0.95;
+  color: var(--achiote);
+}
+.acuerdos b {
+  color: var(--tinta);
+}
+@media (max-width: 52rem) {
+  .acuerdos-reja {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* La foto grande de la portada: un paisaje ancho, recortado como banner,
    que remata en la silueta de la Sierra justo debajo. */
 .portada-foto {
-  margin: clamp(2.25rem, 5vw, 3.5rem) auto 0;
+  max-width: calc(74rem + 2 * var(--marco));
+  margin: 0 auto;
+  padding-inline: var(--marco);
 }
 .portada-foto img {
   width: 100%;
@@ -523,7 +909,31 @@ a {
   box-shadow: 0 0 0 1px var(--linea-fuerte);
 }
 .mapa-marcador.fin::before {
-  background: var(--brasil);
+  background: var(--maiz);
+  border-color: var(--tinta);
+}
+/* El nombre del punto, al lado del marcador. */
+.mapa-marcador {
+  position: relative;
+}
+.mapa-marcador-nombre {
+  position: absolute;
+  left: 34px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.2rem 0.5rem;
+  font-family: var(--texto);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--papel-alto);
+  background: var(--tinta);
+}
+.mapa-marcador.fin .mapa-marcador-nombre {
+  background: var(--dorado);
+  color: var(--tinta);
 }
 .mapa-panel {
   position: absolute;
@@ -825,11 +1235,11 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
+  gap: 0.6rem;
   font-family: var(--texto);
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  padding: 0.6rem 1rem;
+  padding: 0.65rem 1.05rem;
   text-decoration: none;
   border: 1px solid var(--linea-fuerte);
   background: transparent;
@@ -842,17 +1252,29 @@ a {
   border-color: var(--tinta);
   color: var(--papel-alto);
 }
+/* El boton de accion: dorado con letra oscura (la letra blanca sobre el
+   dorado no se leeria). */
 .boton.solido {
-  background: var(--barro);
-  border-color: var(--barro);
-  color: var(--papel-alto);
+  background: var(--dorado);
+  border-color: var(--dorado);
+  color: var(--tinta);
 }
 .boton.solido:hover {
   background: var(--tinta);
   border-color: var(--tinta);
+  color: var(--papel-alto);
+}
+/* Sobre foto o fondo oscuro: borde y letra blancos. */
+.boton.claro {
+  border-color: var(--papel-alto);
+  color: var(--papel-alto);
+}
+.boton.claro:hover {
+  background: var(--papel-alto);
+  color: var(--tinta);
 }
 .boton.grande {
-  padding: 0.85rem 1.4rem;
+  padding: 1rem 1.35rem;
   font-size: 0.9rem;
 }
 .boton[aria-disabled='true'],
@@ -897,8 +1319,13 @@ a {
   /* Dos esquinas redondas y dos en punta: silueta de hoja sin imagenes. */
   border-radius: 0 70% 0 70%;
   opacity: 0;
-  animation: hoja-cae var(--dura, 20s) linear infinite;
-  animation-delay: var(--espera, 0s);
+  /* Sin movimiento, las hojas ni se dibujan: su reposo es invisible. */
+  display: none;
+  @media (prefers-reduced-motion: no-preference) {
+    display: block;
+    animation: hoja-cae var(--dura, 20s) linear infinite;
+    animation-delay: var(--espera, 0s);
+  }
 }
 /* Cada hoja con su ritmo, tamaño y tono, para que no se vea el truco. */
 .hoja:nth-child(1) { left: 8%;  --dura: 21s; --espera: 0s;   }
@@ -933,8 +1360,12 @@ a {
   justify-content: space-between;
   gap: 1.25rem 2rem;
   /* Mas aire abajo: ahi vive el agua y no debe tocar el boton. */
-  padding: clamp(1.8rem, 3.5vw, 2.6rem) clamp(1.4rem, 3vw, 2.2rem) clamp(3.6rem, 6vw, 4.6rem);
-  background: linear-gradient(180deg, var(--anil), #1b3050);
+  padding: clamp(3rem, 7vw, 5.5rem) clamp(1.4rem, 4vw, 3.5rem) clamp(4rem, 8vw, 6rem);
+  /* El rio de fondo, con una sombra que deja leer el texto blanco. */
+  background:
+    linear-gradient(90deg, rgba(20, 22, 20, 0.78) 0%, rgba(20, 22, 20, 0.35) 75%),
+    url('../../fotos_recorrido/web/rio-guatapuri.webp') center 45% / cover,
+    var(--verde);
   overflow: hidden;
 }
 .rio > * {
@@ -946,24 +1377,19 @@ a {
 }
 .rio-texto h3 {
   font-family: var(--display);
-  font-variation-settings: 'wdth' 85, 'opsz' 28;
-  font-weight: 700;
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  line-height: 1.1;
-  color: #f4f0e2;
-  margin-bottom: 0.55rem;
+  font-variation-settings: 'wdth' 100, 'opsz' 48;
+  font-weight: 800;
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  color: var(--papel-alto);
+  margin-bottom: 0.8rem;
 }
 .rio-texto p {
   color: rgba(236, 232, 216, 0.78);
   font-size: 0.95rem;
 }
 /* Sobre el añil oscuro, el hover del boton se invierte a papel. */
-.rio .boton.solido:hover,
-.rio .boton.solido:focus-visible {
-  background: var(--papel-alto);
-  border-color: var(--papel-alto);
-  color: var(--tinta);
-}
 /* El agua es de rio, no de mar: hilos de corriente que viajan todos en el
    mismo sentido a velocidades distintas — lo hondo lento, la superficie
    rapida — como el Guatapurí bajando. Nada de olas. El SVG vive en el HTML;
@@ -980,11 +1406,13 @@ a {
   z-index: 0;
   pointer-events: none;
 }
-.rio-agua .agua-cuerpo   { animation: agua-fluye 75s linear infinite; }
-.rio-agua .agua-honda    { animation: agua-fluye 42s linear infinite; }
-.rio-agua .agua-media    { animation: agua-fluye 26s linear infinite; }
-.rio-agua .agua-vivaz    { animation: agua-fluye 15s linear infinite; }
-.rio-agua .agua-destello { animation: agua-fluye 11s linear infinite; }
+@media (prefers-reduced-motion: no-preference) {
+  .rio-agua .agua-cuerpo   { animation: agua-fluye 75s linear infinite; }
+  .rio-agua .agua-honda    { animation: agua-fluye 42s linear infinite; }
+  .rio-agua .agua-media    { animation: agua-fluye 26s linear infinite; }
+  .rio-agua .agua-vivaz    { animation: agua-fluye 15s linear infinite; }
+  .rio-agua .agua-destello { animation: agua-fluye 11s linear infinite; }
+}
 @keyframes agua-fluye {
   to { transform: translateX(-600px); }
 }
@@ -1015,7 +1443,9 @@ a {
   border-radius: 50%;
   border: 1px solid rgba(236, 232, 216, 0.55);
   opacity: 0;
-  animation: manar 5.5s ease-out infinite;
+  @media (prefers-reduced-motion: no-preference) {
+    animation: manar 5.5s ease-out infinite;
+  }
 }
 .manantial::after {
   animation-delay: 2.75s;
@@ -1042,8 +1472,10 @@ a {
   inset: 0;
   border: 1px solid rgba(236, 232, 216, 0.6);
   opacity: 0;
-  animation: onda 6s ease-out infinite;
   pointer-events: none;
+  @media (prefers-reduced-motion: no-preference) {
+    animation: onda 6s ease-out infinite;
+  }
 }
 .ondas::after {
   animation-delay: 3s;
@@ -1081,10 +1513,14 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform 0.5s ease;
+  }
 }
 .tour:hover .tour-foto img {
-  transform: scale(1.05);
+  @media (prefers-reduced-motion: no-preference) {
+    transform: scale(1.05);
+  }
 }
 .tour-texto {
   padding: clamp(1.3rem, 2.5vw, 1.8rem);
@@ -1101,12 +1537,13 @@ a {
   color: var(--tinta-media);
   font-size: 0.9rem;
 }
+/* La etiqueta de cada recorrido: el kicker dorado. */
 .tour .quien {
   font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--anil);
+  color: var(--dorado-texto);
 }
 
 /* ===========================================================================
@@ -1175,7 +1612,9 @@ a {
   height: 3.4rem;
   border-radius: 50%;
   background: var(--brasil);
-  transition: transform 0.18s ease;
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform 0.18s ease;
+  }
 }
 .pieza-play::after {
   content: '';
@@ -1192,7 +1631,9 @@ a {
 }
 .pieza-video:hover .pieza-play,
 .pieza-video:focus-visible .pieza-play {
-  transform: scale(1.09);
+  @media (prefers-reduced-motion: no-preference) {
+    transform: scale(1.09);
+  }
 }
 
 .pieza-pie {
@@ -1432,33 +1873,81 @@ a {
   color: var(--tinta-suave);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-  /* Las animaciones infinitas no basta con acortarlas: se apagan. Las hojas
-     ademas se esconden porque su estado de reposo es invisible. */
-  .hoja,
-  .rio-agua path,
-  .ondas::before,
-  .ondas::after,
-  .manantial::before,
-  .manantial::after,
-  .chipire-guia,
-  .chipire-hilo {
-    animation: none !important;
-  }
-  .hoja {
-    display: none;
-  }
-  /* Sin movimiento, el chipire se muestra ya tejido. */
-  .chipire-guia {
-    stroke-dashoffset: 0;
+/* ===========================================================================
+   EL CIERRE EN VERDE
+   La ultima seccion (#boca) va sobre el verde hondo, y la Sierra cierra la
+   pagina en los mismos tonos: cordones verdes y picos de nieve.
+   =========================================================================== */
+#boca {
+  background: var(--verde);
+  color: var(--papel-alto);
+  padding-top: clamp(3.5rem, 8vw, 6rem);
+}
+#boca .titulo {
+  color: var(--papel-alto);
+}
+#boca .titulo em {
+  color: var(--dorado);
+}
+#boca .parrafo,
+#boca .pie {
+  color: rgba(250, 247, 240, 0.78);
+}
+#boca .rotulo .nombre {
+  color: var(--dorado);
+}
+#boca .rotulo .regla {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(250, 247, 240, 0.3) 0 10px,
+    transparent 10px 18px
+  );
+}
+#boca .redes a {
+  border-color: rgba(250, 247, 240, 0.3);
+}
+#boca .redes a:hover {
+  background: var(--papel-alto);
+  color: var(--tinta);
+}
+#boca .pie {
+  border-top-color: rgba(250, 247, 240, 0.2);
+}
+.sierra {
+  --anil: #5d7559;
+  --fique: #3c5038;
+  --monte: #16201a;
+  background: var(--verde);
+}
+
+/* ===========================================================================
+   FOGON — la cocina del territorio (territorio.html)
+   El texto a un lado y cuatro fotos en cuadricula al otro, como antojo.
+   =========================================================================== */
+.fogon-reja {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(1.75rem, 5vw, 4rem);
+  align-items: center;
+}
+.fogon-fotos {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+.fogon-fotos li {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--polvo);
+}
+.fogon-fotos img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 52rem) {
+  .fogon-reja {
+    grid-template-columns: 1fr;
   }
 }

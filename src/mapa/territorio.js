@@ -3,22 +3,26 @@
 // dibujadas encima al estilo Strava: trazo que se anima, marcadores de inicio
 // y fin, y un panel con los datos al tocar la ruta.
 //
-// Las rutas salen de src/data/routes.json, que genera el script
-// scripts/gpx-a-rutas.mjs a partir de los .gpx en src/data/routes/.
+// Lo primero que muestra es como llegar: la carretera de Valledupar a
+// Atánquez (src/data/llegada.json, trazada con OSRM sobre OpenStreetMap).
+// Las caminatas salen de src/data/routes.json, que genera el script
+// scripts/gpx-a-rutas.mjs a partir de los .gpx en src/data/routes/; hoy esta
+// vacio, y cuando lleguen los GPX reales se dibujan encima sin tocar nada.
 
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import rutas from '../data/routes.json';
+import caminatas from '../data/routes.json';
+import llegada from '../data/llegada.json';
 import { wa } from '../config.js';
 
 // La paleta del sitio, en duro: el estilo del mapa no puede leer variables
 // CSS, asi que estos valores tienen que ir a mano (espejo de app.css).
-const PAPEL = '#ece8d8';
-const PAPEL_ALTO = '#f5f2e6';
-const POLVO = '#ded9c2';
-const TINTA = '#1d1a12';
-const TINTA_MEDIA = '#57513e';
-const BARRO = '#9c4520';
+const PAPEL = '#f2ede2';
+const PAPEL_ALTO = '#faf7f0';
+const POLVO = '#e8e1d3';
+const TINTA = '#1e211f';
+const TINTA_MEDIA = '#474a45';
+const DORADO = '#d29f3a';
 const AGUA = '#7f98b3'; // añil rebajado, para rios y lagunas
 const VERDE = '#c6cbab'; // monte rebajado, para vegetacion
 const VIA = '#c0b48c'; // fique tenue, para las vias
@@ -26,9 +30,13 @@ const VIA = '#c0b48c'; // fique tenue, para las vias
 // El cuadro del territorio: no se puede pasear el mapa fuera de esta zona.
 // Ajustable si algun recorrido queda por fuera.
 const LIMITES = [
-  [-73.55, 10.55],
-  [-73.15, 10.85],
+  [-73.6, 10.3],
+  [-73.0, 10.9],
 ];
+
+// La llegada va primero y lleva los nombres de sus dos puntas, para que se
+// lea de donde sale y a donde llega sin tocar nada.
+const rutas = [{ ...llegada, es_llegada: true }, ...caminatas];
 
 const texto = (t) => document.createTextNode(t);
 
@@ -82,9 +90,10 @@ function vestirMapa(map) {
 // El marcador es un boton con area de toque de 44px (el punto visible se
 // dibuja en CSS): tocarlo abre los datos de la ruta, que con el puro trazo
 // era muy dificil de atinar con el dedo.
-function marcador(map, coordenada, clase, etiqueta, alTocar) {
+function marcador(map, coordenada, clase, etiqueta, alTocar, nombre) {
   const punto = el('button', `mapa-marcador ${clase}`);
   punto.type = 'button';
+  if (nombre) punto.append(el('span', 'mapa-marcador-nombre', nombre));
   punto.setAttribute('aria-label', etiqueta);
   punto.addEventListener('click', alTocar);
   new maplibregl.Marker({ element: punto }).setLngLat(coordenada).addTo(map);
@@ -147,13 +156,13 @@ function mostrarRuta(panel, ruta) {
     caja.append(el('dt', null, titulo), el('dd', null, valor));
     datos.append(caja);
   };
-  dato('Distancia', `${ruta.distancia_km} km`);
-  dato('Desnivel', `+${ruta.desnivel_m} m`);
+  dato('Distancia', ruta.distancia_km && `${ruta.distancia_km} km`);
+  dato('Desnivel', ruta.desnivel_m > 0 && `+${ruta.desnivel_m} m`);
   dato('Dificultad', ruta.dificultad);
   dato('Duración', ruta.duracion_estimada);
   panel.append(datos);
 
-  if (ruta.fotos.length) {
+  if (ruta.fotos?.length) {
     const fotos = el('div', 'mapa-panel-fotos');
     for (const src of ruta.fotos) {
       const img = document.createElement('img');
@@ -165,8 +174,12 @@ function mostrarRuta(panel, ruta) {
     panel.append(fotos);
   }
 
-  const boton = el('a', 'boton solido', 'Agendar este recorrido');
-  boton.href = wa(`Hola Enosh, quiero agendar el recorrido: ${ruta.nombre}.`);
+  const boton = el('a', 'boton solido', ruta.es_llegada ? 'Pregúntame cómo llegar' : 'Agendar este recorrido');
+  boton.href = wa(
+    ruta.es_llegada
+      ? 'Hola Enosh, quiero ir a Atánquez. ¿Cómo llego?'
+      : `Hola Enosh, quiero agendar el recorrido: ${ruta.nombre}.`,
+  );
   boton.target = '_blank';
   boton.rel = 'noopener';
   panel.append(boton);
@@ -182,9 +195,9 @@ export function montarMapa(contenedor) {
     // teselas son las mismas (esquema OpenMapTiles), asi que vestirMapa lo
     // recolorea igual con la paleta del sitio.
     style: 'https://tiles.openfreemap.org/styles/positron',
-    center: [-73.35, 10.7],
-    zoom: 12,
-    minZoom: 10.5,
+    center: [-73.29, 10.59],
+    zoom: 10,
+    minZoom: 9,
     maxZoom: 16,
     maxBounds: LIMITES,
     attributionControl: { compact: true },
@@ -228,12 +241,12 @@ export function montarMapa(contenedor) {
         type: 'line',
         source: idFuente,
         layout: { 'line-cap': 'round', 'line-join': 'round' },
-        paint: { 'line-color': BARRO, 'line-width': 3.5 },
+        paint: { 'line-color': DORADO, 'line-width': 3.5 },
       });
 
       const abrirRuta = () => mostrarRuta(panel, ruta);
-      marcador(map, coords[0], 'inicio', `Inicio de ${ruta.nombre}: ver los datos de la ruta`, abrirRuta);
-      marcador(map, coords.at(-1), 'fin', `Fin de ${ruta.nombre}: ver los datos de la ruta`, abrirRuta);
+      marcador(map, coords[0], 'inicio', `Inicio de ${ruta.nombre}: ver los datos de la ruta`, abrirRuta, ruta.desde);
+      marcador(map, coords.at(-1), 'fin', `Fin de ${ruta.nombre}: ver los datos de la ruta`, abrirRuta, ruta.hasta);
       animarTrazo(map, idFuente, coords);
 
       rutaPorCapa.set(idFuente, ruta);
