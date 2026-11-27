@@ -132,6 +132,8 @@ noticias/
 - Las **muestras de trabajo** de la página "Trabaja con nosotros" salen de `src/data/muestras.json`:
   una lista con el `titulo` y el enlace de `youtube` de cada video, en el
   orden en que se muestran.
+- Los **reels de Instagram** de esa misma página salen de `src/data/reels.json`:
+  la lista de enlaces a cada reel.
 
 ---
 

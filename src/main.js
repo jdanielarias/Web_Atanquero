@@ -7,6 +7,7 @@ import './css/app.css';
 import { cargarMochilas } from './catalogo/cargar.js';
 import { cargarPiezas, codigoYoutube } from './hilo/cargar.js';
 import muestras from './data/muestras.json';
+import reels from './data/reels.json';
 import { cargarNoticias } from './noticias/cargar.js';
 import { wa } from './config.js';
 
@@ -34,7 +35,6 @@ enlaceWa('#waPie', 'Hola Enosh, quiero más información.');
 enlaceWa('#waHero', 'Hola Enosh, quiero caminar el territorio kankuamo contigo.');
 enlaceWa('#waNav', 'Hola Enosh, quiero más información.');
 enlaceWa('#waServicios', 'Hola, quiero cotizar un proyecto con El Atánquero Explora y El Mochilón de la Sierra:');
-enlaceWa('#waTrabaja', 'Hola, quiero trabajar con El Atánquero Explora. Les cuento quién soy y qué hago:');
 
 // El mapa del territorio vive en la portada. MapLibre pesa mas que todo el
 // resto del sitio junto, asi que va en su propio pedazo del build y solo se
@@ -268,6 +268,41 @@ if (muestrasLista) {
       .filter((m) => m.youtube)
       .map(tarjetaPieza),
   );
+}
+
+// --- reels de Instagram (trabaja.html) -------------------------------------
+// Se usa el metodo oficial de Instagram: un <blockquote> por reel que su
+// script convierte en el reproductor. El script (de instagram.com) se pide
+// solo cuando los reels estan por entrar en pantalla, para no frenar la
+// carga de la pagina. Sin el, cada reel queda como un enlace a Instagram.
+const reelsLista = $('#reels-lista');
+if (reelsLista) {
+  for (const enlace of reels) {
+    const bloque = document.createElement('blockquote');
+    bloque.className = 'instagram-media';
+    bloque.dataset.instgrmPermalink = enlace;
+    bloque.dataset.instgrmVersion = '14';
+    const a = document.createElement('a');
+    a.href = enlace;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.append(texto('Ver este reel en Instagram →'));
+    bloque.append(a);
+    reelsLista.append(bloque);
+  }
+  const vigiaReels = new IntersectionObserver(
+    (entradas, obs) => {
+      if (!entradas.some((e) => e.isIntersecting)) return;
+      obs.disconnect();
+      const s = document.createElement('script');
+      s.src = 'https://www.instagram.com/embed.js';
+      s.async = true;
+      s.onload = () => window.instgrm?.Embeds.process();
+      document.body.append(s);
+    },
+    { rootMargin: '400px' },
+  );
+  vigiaReels.observe(reelsLista);
 }
 
 // --- noticias -------------------------------------------------------------

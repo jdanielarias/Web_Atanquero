@@ -1962,33 +1962,6 @@ a {
   color: var(--tinta-media);
 }
 
-/* ===========================================================================
-   TRABAJA CON NOSOTROS (trabaja.html)
-   =========================================================================== */
-.trabaja-areas {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: 1.5rem 2rem;
-  margin: clamp(1.75rem, 4vw, 2.75rem) 0 clamp(2rem, 5vw, 3rem);
-}
-.trabaja-areas li {
-  padding-top: 0.9rem;
-  border-top: 2px solid var(--dorado);
-  color: var(--tinta-media);
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-.trabaja-areas b {
-  display: block;
-  margin-bottom: 0.3rem;
-  font-family: var(--display);
-  font-variation-settings: 'wdth' 100, 'opsz' 20;
-  font-weight: 700;
-  font-size: 1.15rem;
-  line-height: 1.2;
-  color: var(--tinta);
-}
 
 /* ===========================================================================
    NOTICIAS Y EL MOCHILON (noticias.html)
@@ -2130,7 +2103,7 @@ a {
 }
 .podcast-reproductor {
   width: 100%;
-  height: 352px;
+  height: 232px;
   border: 0;
   border-radius: 12px;
   background: var(--polvo);
@@ -2139,4 +2112,35 @@ a {
   .podcast-reja {
     grid-template-columns: 1fr;
   }
+}
+
+/* Los reels de Instagram en trabaja.html: tres columnas que bajan a una. */
+.reels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  align-items: start;
+  margin-top: clamp(1.25rem, 2.5vw, 2rem);
+}
+/* Instagram le pone anchos fijos al reproductor; aqui se ajusta a la columna. */
+.reels .instagram-media,
+.reels iframe {
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+/* Mientras carga (o si no carga): una tarjeta con el enlace. */
+.reels blockquote.instagram-media {
+  display: grid;
+  place-items: center;
+  min-height: 12rem;
+  padding: 1.5rem;
+  background: var(--papel-alto);
+  border: 1px solid var(--linea);
+}
+.reels blockquote.instagram-media a {
+  font-weight: 700;
+  color: var(--dorado-texto);
+  text-decoration: none;
 }
