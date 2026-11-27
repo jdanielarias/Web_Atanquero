@@ -8,3 +8,14 @@ fotos_recorrido/*
 .DS_Store
 *.log
 .wrangler/
+
+# Originales de fotos y videos que se dejan sueltos en la carpeta principal
+# para optimizarlos: no van al repositorio (GitHub rechaza archivos de mas
+# de 100 MB). Las versiones para la web viven en fotos_recorrido/web/.
+/*.[mM][pP]4
+/*.[mM][oO][vV]
+/*.[aA][rR][wW]
+/*.[jJ][pP][gG]
+/*.[jJ][pP][eE][gG]
+/*.[pP][nN][gG]
+/*.[hH][eE][iI][cC]
