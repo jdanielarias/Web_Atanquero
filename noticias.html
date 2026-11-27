@@ -142,9 +142,9 @@
             Fotografía y video para eventos, reuniones, encuentros y celebraciones.
           </li>
           <li>
-            <b>Pódcast y radio</b>
-            Piezas sonoras, entrevistas y programas, con la experiencia de El Mochilón y Tayrona
-            Estéreo.
+            <b>Producción de pódcast</b>
+            Pódcast de principio a fin: guion, grabación, edición y publicación, con la
+            experiencia de El Mochilón de la Sierra y Tayrona Estéreo.
           </li>
         </ul>
         <a class="boton solido grande" id="waServicios" href="#" target="_blank" rel="noopener">Cotiza tu proyecto <span aria-hidden="true">→</span></a>
@@ -152,7 +152,7 @@
     </section>
 
     <!-- ===================== MUESTRAS ===================== -->
-    <!-- data-piezas: las carpetas de /hilo que se muestran aqui, en orden. -->
+    <!-- Los videos salen de src/data/muestras.json, en ese orden. -->
     <section class="seccion" id="muestras">
       <div class="limite">
         <div class="rotulo">
@@ -160,7 +160,29 @@
           <span class="regla"></span>
         </div>
         <h2 class="titulo">Algunos <em>de nuestros trabajos.</em></h2>
-        <ul class="hilo-piezas" id="muestras-lista" data-piezas="tejedoras-de-vida,guatapuri-cien-anos,llamado-sabedores"></ul>
+        <ul class="hilo-piezas" id="muestras-lista"></ul>
+
+        <!-- El pódcast, con el reproductor de Spotify. loading="lazy": no
+             carga nada de Spotify hasta que la persona baja hasta aqui. -->
+        <div class="podcast-reja">
+          <div>
+            <p class="kicker">Pódcast</p>
+            <h3 class="podcast-titulo">El Mochilón de la Sierra</h3>
+            <p class="parrafo">
+              Un espacio para caminar con los sonidos y las voces de la Sierra Nevada de Santa
+              Marta: la música tradicional, la artesanía, la palabra de los mayores y las
+              historias de los cuatro pueblos.
+            </p>
+            <a class="boton grande" href="https://open.spotify.com/show/4wIpkTp8EwK5kGqUnpeIaY" target="_blank" rel="noopener">Escuchar en Spotify <span aria-hidden="true">→</span></a>
+          </div>
+          <iframe
+            class="podcast-reproductor"
+            title="Pódcast El Mochilón de la Sierra en Spotify"
+            src="https://open.spotify.com/embed/show/4wIpkTp8EwK5kGqUnpeIaY?theme=0"
+            loading="lazy"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          ></iframe>
+        </div>
       </div>
     </section>
 

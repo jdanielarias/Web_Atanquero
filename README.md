@@ -129,9 +129,9 @@ noticias/
   de nombre. Una noticia sin fotos sale solo con su texto.
 - `fuente` y `enlace` son opcionales: si la noticia salió en otro medio, la
   tarjeta muestra «Leer en (fuente) →» con el enlace.
-- Las **muestras de trabajo** de esa página son videos de `hilo/`: se eligen
-  en `noticias.html`, en el atributo `data-piezas` de `#muestras-lista`
-  (los nombres de carpeta separados por comas).
+- Las **muestras de trabajo** de esa página salen de `src/data/muestras.json`:
+  una lista con el `titulo` y el enlace de `youtube` de cada video, en el
+  orden en que se muestran.
 
 ---
 

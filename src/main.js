@@ -5,7 +5,8 @@ import '@fontsource-variable/karla';
 import './css/app.css';
 
 import { cargarMochilas } from './catalogo/cargar.js';
-import { cargarPiezas } from './hilo/cargar.js';
+import { cargarPiezas, codigoYoutube } from './hilo/cargar.js';
+import muestras from './data/muestras.json';
 import { cargarNoticias } from './noticias/cargar.js';
 import { wa } from './config.js';
 
@@ -257,13 +258,16 @@ if (hiloLista) {
 }
 
 // --- muestras de trabajo (noticias.html) ----------------------------------
-// Las mismas piezas de /hilo, pero solo las que nombra data-piezas, en ese
-// orden: asi una produccion se muestra aqui sin repetir su carpeta.
+// Los videos que se muestran como trabajos hechos: la lista y su orden viven
+// en src/data/muestras.json (titulo y enlace de YouTube).
 const muestrasLista = $('#muestras-lista');
 if (muestrasLista) {
-  const ids = (muestrasLista.dataset.piezas ?? '').split(',').map((t) => t.trim()).filter(Boolean);
-  const elegidas = ids.map((id) => piezas.find((pz) => pz.id === id)).filter(Boolean);
-  muestrasLista.append(...elegidas.map(tarjetaPieza));
+  muestrasLista.append(
+    ...muestras
+      .map((m, i) => ({ id: `muestra-${i}`, titulo: m.titulo, nota: m.nota ?? '', youtube: codigoYoutube(m.youtube) }))
+      .filter((m) => m.youtube)
+      .map(tarjetaPieza),
+  );
 }
 
 // --- noticias -------------------------------------------------------------
