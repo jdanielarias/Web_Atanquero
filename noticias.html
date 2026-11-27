@@ -62,14 +62,19 @@
     <!-- La misma portada del inicio: foto a lo ancho, sombra y el titulo en
          blanco y dorado. Asi todas las paginas se sienten una sola. -->
     <header class="hero hero-pagina">
-      <img
-        class="hero-foto"
-        src="./fotos_recorrido/web/mayores.webp"
-        fetchpriority="high"
-        decoding="async"
-        style="object-position: center 70%"
-        alt="Una casa ceremonial de techo de palma, entre los árboles del monte"
-      />
+      <!-- La Sierra al atardecer. El computador baja la foto horizontal y el
+           celular un recorte vertical. -->
+      <picture>
+        <source media="(max-width: 44rem)" srcset="./fotos_recorrido/web/noticias-portada-movil.webp" />
+        <img
+          class="hero-foto"
+          src="./fotos_recorrido/web/noticias-portada.webp"
+          fetchpriority="high"
+          decoding="async"
+          style="object-position: center 62%"
+          alt="Las montañas de la Sierra Nevada al atardecer, con nubes en el cielo y hojas de plátano en primer plano"
+        />
+      </picture>
       <div class="limite hero-texto">
         <p class="kicker">El Mochilón de la Sierra · El Atánquero Explora</p>
         <h1>Noticias del <em>pueblo kankuamo.</em></h1>
