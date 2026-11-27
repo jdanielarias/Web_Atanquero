@@ -58,20 +58,31 @@
       <a class="boton solido nav-contacto" id="waNav" href="#" target="_blank" rel="noopener">Contáctame</a>
     </nav>
 
-    <!-- ===================== TRABAJA CON NOSOTROS ===================== -->
-    <!-- La pagina de El Atanquero Explora y El Mochilon de la Sierra como
-         equipo: sus servicios, sus trabajos, quienes son y como sumarse. -->
-    <section class="seccion" id="trabaja">
-      <div class="limite">
+    <!-- ===================== PORTADA ===================== -->
+    <!-- La misma portada del inicio: foto a lo ancho, sombra y el titulo en
+         blanco y dorado. Asi todas las paginas se sienten una sola. -->
+    <header class="hero hero-pagina" id="trabaja">
+      <img
+        class="hero-foto"
+        src="./fotos_recorrido/web/enosh-portada.webp"
+        srcset="./fotos_recorrido/web/enosh-portada-800.webp 800w, ./fotos_recorrido/web/enosh-portada.webp 1600w"
+        sizes="100vw"
+        fetchpriority="high"
+        decoding="async"
+        style="object-position: 60% 55%"
+        alt="Enosh Arias saludando con el pulgar arriba frente a la laguna de Kuriwa, entre las montañas de la Sierra Nevada"
+      />
+      <div class="limite hero-texto">
         <p class="kicker">El Atánquero Explora · El Mochilón de la Sierra</p>
-        <h1 class="titulo">Trabaja <em>con nosotros.</em></h1>
-        <p class="parrafo" style="margin-top: 1.1rem">
-          Exploramos territorios, contamos historias e impulsamos lo nuestro. Junto a El
-          Mochilón de la Sierra, ponemos esa experiencia al servicio de tu marca, tu
-          organización o tu evento.
+        <h1>Trabaja <em>con nosotros.</em></h1>
+        <p class="hero-bajada">
+          Exploramos territorios, contamos historias e impulsamos lo nuestro. Junto a El Mochilón de la Sierra, ponemos esa experiencia al servicio de tu marca, tu organización o tu evento.
         </p>
+        <div class="hero-botones">
+          <a class="boton solido grande" href="#servicios">Ver los servicios <span aria-hidden="true">→</span></a>
+        </div>
       </div>
-    </section>
+    </header>
 
     <!-- ===================== SERVICIOS (franja verde) ===================== -->
     <section class="servicios" id="servicios" aria-labelledby="servicios-titulo">

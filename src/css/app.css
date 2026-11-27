@@ -551,16 +551,34 @@ a {
    abajo: el texto sube al cielo, que esta vacio, y la sombra se pasa arriba
    para que el blanco se lea sobre el cielo claro. */
 @media (max-width: 44rem) {
-  .hero {
+  .hero-inicio {
     align-items: flex-start;
     padding-top: clamp(2.5rem, 10vw, 4rem);
     /* Mas alta que la pantalla: asi la foto crece y la persona baja hasta
        quedar por debajo de los botones. */
     min-height: max(120svh, 64rem);
   }
-  .hero::before {
+  .hero-inicio::before {
     background: linear-gradient(180deg, rgba(20, 22, 20, 0.72) 0%, rgba(20, 22, 20, 0.45) 55%, rgba(20, 22, 20, 0) 80%);
   }
+}
+
+/* La portada de las demas paginas: la misma del inicio, pero mas baja,
+   para que el contenido aparezca pronto. */
+.hero-pagina {
+  min-height: clamp(24rem, 62svh, 38rem);
+  padding-top: clamp(5rem, 10vw, 7rem);
+}
+.hero-pagina h1 {
+  font-size: clamp(2.6rem, 7vw, 5.2rem);
+  max-width: 14ch;
+}
+/* Fotos con mucho color (el Corpus, el techo de palma): una sombra mas
+   firme para que el blanco se lea siempre. */
+.hero-pagina::before {
+  background:
+    linear-gradient(90deg, rgba(20, 22, 20, 0.78) 0%, rgba(20, 22, 20, 0.35) 75%),
+    linear-gradient(0deg, rgba(20, 22, 20, 0.55) 0%, rgba(20, 22, 20, 0.1) 70%);
 }
 
 /* La invitacion: una frase grande y centrada, como un respiro. */
@@ -1140,7 +1158,6 @@ a {
   flex-direction: column;
   background: var(--papel-alto);
   border: 1px solid var(--linea);
-  padding-left: 0.9rem;
 }
 
 .mochila-foto {
@@ -1679,7 +1696,6 @@ a {
   grid-template-columns: 1.15fr 1fr;
   background: var(--papel-alto);
   border: 1px solid var(--linea);
-  padding-left: 0.9rem;
 }
 @media (max-width: 52rem) {
   .experiencia {
@@ -2205,4 +2221,22 @@ a {
 .reel figcaption a:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+/* ===========================================================================
+   UN SOLO ESTILO EN TODAS LAS PAGINAS
+   Los rotulos de seccion se ven como el kicker del inicio (palabra dorada y
+   espaciada), sin la espiral ni la linea punteada del diseño anterior; y
+   las tarjetas pierden el pespunte lateral.
+   =========================================================================== */
+.rotulo .paso,
+.rotulo .regla,
+.hilo-lateral {
+  display: none;
+}
+.rotulo {
+  margin-bottom: 0.9rem;
+}
+.mochilas-texto {
+  max-width: 62ch;
 }
