@@ -270,39 +270,89 @@ if (muestrasLista) {
   );
 }
 
-// --- reels de Instagram (trabaja.html) -------------------------------------
-// Se usa el metodo oficial de Instagram: un <blockquote> por reel que su
-// script convierte en el reproductor. El script (de instagram.com) se pide
-// solo cuando los reels estan por entrar en pantalla, para no frenar la
-// carga de la pagina. Sin el, cada reel queda como un enlace a Instagram.
+// --- reels (trabaja.html) -------------------------------------------------
+// Los reels se sirven desde la propia pagina (public/reels/), no desde
+// Instagram: asi siempre cargan y se ven como alla. La lista vive en
+// src/data/reels.json: enlace a Instagram, video y portada.
+// - Cada video arranca solo y sin sonido cuando entra en pantalla, y se
+//   pausa al salir. preload="none": no se descarga nada antes.
+// - Tocar el video le da sonido (y silencia a los demas).
+// - Con "reducir movimiento" no arrancan solos: hay que tocarlos.
+// Un reel sin video todavia queda como tarjeta que lleva a Instagram.
 const reelsLista = $('#reels-lista');
 if (reelsLista) {
-  for (const enlace of reels) {
-    const bloque = document.createElement('blockquote');
-    bloque.className = 'instagram-media';
-    bloque.dataset.instgrmPermalink = enlace;
-    bloque.dataset.instgrmVersion = '14';
+  const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const videos = [];
+
+  for (const r of reels) {
+    const tarjeta = document.createElement('figure');
+    tarjeta.className = 'reel';
+
+    if (r.video) {
+      const v = document.createElement('video');
+      v.src = r.video;
+      if (r.portada) v.poster = r.portada;
+      v.muted = true;
+      v.loop = true;
+      v.playsInline = true;
+      v.preload = 'none';
+      v.setAttribute('aria-label', 'Reel de El Atánquero Explora. Toca para activar o quitar el sonido.');
+
+      const sonido = document.createElement('span');
+      sonido.className = 'reel-sonido';
+      sonido.setAttribute('aria-hidden', 'true');
+      sonido.textContent = 'Sin sonido';
+
+      const pintar = () => {
+        sonido.textContent = v.muted ? 'Sin sonido' : 'Con sonido';
+        tarjeta.classList.toggle('sonando', !v.muted);
+      };
+      v.addEventListener('click', () => {
+        const activar = v.muted;
+        for (const otro of videos) {
+          otro.muted = true;
+          otro.dispatchEvent(new Event('volumechange'));
+        }
+        v.muted = !activar;
+        if (v.paused) v.play().catch(() => {});
+      });
+      v.addEventListener('volumechange', pintar);
+
+      tarjeta.append(v, sonido);
+      videos.push(v);
+    } else {
+      const vacio = document.createElement('a');
+      vacio.className = 'reel-vacio';
+      vacio.href = r.enlace;
+      vacio.target = '_blank';
+      vacio.rel = 'noopener';
+      vacio.setAttribute('aria-label', 'Ver este reel en Instagram');
+      tarjeta.append(vacio);
+    }
+
+    const pie = document.createElement('figcaption');
     const a = document.createElement('a');
-    a.href = enlace;
+    a.href = r.enlace;
     a.target = '_blank';
     a.rel = 'noopener';
-    a.append(texto('Ver este reel en Instagram →'));
-    bloque.append(a);
-    reelsLista.append(bloque);
+    a.append(texto('Ver en Instagram →'));
+    pie.append(a);
+    tarjeta.append(pie);
+    reelsLista.append(tarjeta);
   }
-  const vigiaReels = new IntersectionObserver(
-    (entradas, obs) => {
-      if (!entradas.some((e) => e.isIntersecting)) return;
-      obs.disconnect();
-      const s = document.createElement('script');
-      s.src = 'https://www.instagram.com/embed.js';
-      s.async = true;
-      s.onload = () => window.instgrm?.Embeds.process();
-      document.body.append(s);
-    },
-    { rootMargin: '400px' },
-  );
-  vigiaReels.observe(reelsLista);
+
+  if (!quieto && videos.length) {
+    const vigiaReels = new IntersectionObserver(
+      (entradas) => {
+        for (const e of entradas) {
+          if (e.isIntersecting) e.target.play().catch(() => {});
+          else e.target.pause();
+        }
+      },
+      { threshold: 0.5 },
+    );
+    videos.forEach((v) => vigiaReels.observe(v));
+  }
 }
 
 // --- noticias -------------------------------------------------------------
