@@ -65,14 +65,20 @@
     <!-- La misma portada del inicio: foto a lo ancho, sombra y el titulo en
          blanco y dorado. Asi todas las paginas se sienten una sola. -->
     <header class="hero hero-pagina">
-      <img
+      <!-- Video de fondo: Atánquez al anochecer, desde la plaza hasta la
+           montaña. Sin sonido y en bucle; mientras carga se ve el primer
+           cuadro (poster). Con "reducir movimiento" src/main.js lo pausa. -->
+      <video
         class="hero-foto"
-        src="./fotos_recorrido/web/atanquez.webp"
-        fetchpriority="high"
-        decoding="async"
-        style="object-position: center 40%"
-        alt="Atánquez visto desde arriba, entre las montañas de la Sierra Nevada"
-      />
+        src="./fotos_recorrido/web/territorio-portada.mp4"
+        poster="./fotos_recorrido/web/territorio-portada-poster.webp"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-label="Video de Atánquez al anochecer, desde la plaza hasta las montañas de la Sierra Nevada"
+      ></video>
       <div class="limite hero-texto">
         <p class="kicker">Sierra Nevada de Gonawindúa</p>
         <h1>El territorio <em>kankuamo.</em></h1>

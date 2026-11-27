@@ -60,6 +60,15 @@ if (lienzoMapa) {
   vigia.observe(lienzoMapa);
 }
 
+// Los videos de fondo de las portadas no arrancan solos para quien pidio
+// reducir el movimiento: se quedan en su primer cuadro.
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  for (const v of document.querySelectorAll('.hero video')) {
+    v.removeAttribute('autoplay');
+    v.pause();
+  }
+}
+
 const mochilas = cargarMochilas();
 const lista = $('#catalogo');
 
