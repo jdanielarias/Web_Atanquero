@@ -62,14 +62,19 @@
     <!-- La misma portada del inicio: foto a lo ancho, sombra y el titulo en
          blanco y dorado. Asi todas las paginas se sienten una sola. -->
     <header class="hero hero-pagina">
-      <img
-        class="hero-foto"
-        src="./fotos_recorrido/web/corpus-christi.webp"
-        fetchpriority="high"
-        decoding="async"
-        style="object-position: center 60%"
-        alt="Danzantes del Corpus Christi con sus cintas de colores llenando la calle"
-      />
+      <!-- El Corpus Christi en Atánquez. El computador baja el recorte
+           horizontal (los danzantes) y el celular la foto vertical entera. -->
+      <picture>
+        <source media="(max-width: 44rem)" srcset="./fotos_recorrido/web/historias-portada-movil.webp" />
+        <img
+          class="hero-foto"
+          src="./fotos_recorrido/web/historias-portada.webp"
+          fetchpriority="high"
+          decoding="async"
+          style="object-position: center 45%"
+          alt="Danzantes del Corpus Christi en Atánquez, con sombreros de cintas de colores, subiendo por una calle del pueblo"
+        />
+      </picture>
       <div class="limite hero-texto">
         <p class="kicker">El Mochilón TV · @elatanquero</p>
         <h1>Historias <em>del territorio.</em></h1>

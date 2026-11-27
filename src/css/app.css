@@ -494,6 +494,17 @@ a {
      recorte la sigue a ella y no al cielo vacio. */
   object-position: 68% 55%;
 }
+/* Cuando la foto va dentro de un <picture> (una version para celular y otra
+   para computador), el <picture> es la capa de fondo: si no, queda como
+   elemento de la fila y la foto se pinta debajo del fondo verde. */
+.hero > picture {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+.hero > picture .hero-foto {
+  z-index: auto;
+}
 /* La sombra que deja leer el blanco: mas oscura abajo a la izquierda, donde
    va el texto. */
 .hero::before {
