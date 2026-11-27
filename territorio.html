@@ -291,45 +291,6 @@
         </div>
 
         <div class="rio">
-          <!-- El agua: capas de corriente que fluyen a distintas velocidades bajo
-               un filtro de turbulencia que las ondula, como el rio entre piedras. -->
-          <svg class="rio-agua" viewBox="0 0 600 64" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="aguaCuerpo" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#bcd2ec" stop-opacity="0" />
-                <stop offset="0.45" stop-color="#bcd2ec" stop-opacity="0.1" />
-                <stop offset="1" stop-color="#bcd2ec" stop-opacity="0.26" />
-              </linearGradient>
-              <filter id="aguaViva" x="-3%" y="-40%" width="106%" height="180%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.012 0.085" numOctaves="2" seed="7" result="ruido" />
-                <feDisplacementMap in="SourceGraphic" in2="ruido" scale="7" xChannelSelector="R" yChannelSelector="G" />
-              </filter>
-            </defs>
-            <g filter="url(#aguaViva)">
-              <path class="agua-cuerpo" fill="url(#aguaCuerpo)"
-                d="M0 10 q50 -3 100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 L1200 64 L0 64 Z" />
-              <g fill="none" stroke="#e9e4d2" stroke-linecap="round">
-                <path class="agua-honda" stroke-width="1.7" stroke-opacity="0.15" stroke-dasharray="26 20"
-                  d="M0 48 q50 -4 100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0 t100 0" />
-                <path class="agua-honda" stroke-width="1.6" stroke-opacity="0.12" stroke-dasharray="18 22"
-                  d="M0 56 q37.5 -3 75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0" />
-                <path class="agua-media" stroke-width="1.5" stroke-opacity="0.22" stroke-dasharray="16 12"
-                  d="M0 31 q30 -3 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" />
-                <path class="agua-media" stroke-width="1.6" stroke-opacity="0.18" stroke-dasharray="22 16"
-                  d="M0 38 q37.5 -3.5 75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0 t75 0" />
-                <path class="agua-vivaz" stroke-width="1.5" stroke-opacity="0.34" stroke-dasharray="14 10"
-                  d="M0 16 q25 -3 50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0" />
-                <path class="agua-vivaz" stroke-width="1.4" stroke-opacity="0.26" stroke-dasharray="10 14"
-                  d="M0 22 q30 -2.5 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" />
-              </g>
-              <g fill="none" stroke="#ffffff" stroke-linecap="round">
-                <path class="agua-destello" stroke-width="2.4" stroke-opacity="0.55" stroke-dasharray="7 118"
-                  d="M0 19 q25 -2 50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0" />
-                <path class="agua-destello" stroke-width="2" stroke-opacity="0.4" stroke-dasharray="9 96"
-                  d="M0 27 q30 -2 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" />
-              </g>
-            </g>
-          </svg>
           <div class="rio-texto">
             <h3>¿Cuándo vienes a la Sierra?</h3>
             <p>
@@ -338,9 +299,7 @@
               colectivos.
             </p>
           </div>
-          <a class="boton solido grande ondas" id="waTour" href="#">Agendemos tu recorrido</a>
-          <span class="manantial" aria-hidden="true"></span>
-          <span class="manantial" aria-hidden="true"></span>
+          <a class="boton solido grande" id="waTour" href="#">Agendemos tu recorrido</a>
         </div>
       </div>
     </section>
