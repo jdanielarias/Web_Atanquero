@@ -20,9 +20,18 @@ function incrustarCssCritico() {
           const activo = Object.values(ctx.bundle).find(
             (a) => a.type === 'asset' && a.fileName.endsWith(nombre),
           );
-          return activo && typeof activo.source === 'string'
-            ? `<style>${activo.source}</style>`
-            : etiqueta;
+          if (!activo || typeof activo.source !== 'string') return etiqueta;
+          // Dentro del .css las rutas (fuentes, la foto del rio) son
+          // relativas a su carpeta, assets/. Pegadas en el HTML pasarian a
+          // ser relativas a la raiz y darian 404: se les antepone la carpeta.
+          const carpeta = activo.fileName.includes('/')
+            ? activo.fileName.slice(0, activo.fileName.lastIndexOf('/') + 1)
+            : '';
+          const css = activo.source.replace(
+            /url\((['"]?)(?!data:|https?:|\/|#)(?:\.\/)?([^)'"]+)\1\)/g,
+            (_, comilla, ruta) => `url(${comilla}./${carpeta}${ruta}${comilla})`,
+          );
+          return `<style>${css}</style>`;
         },
       );
     },
@@ -39,14 +48,16 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsInlineLimit: 0,
-    // Cuatro paginas, una por boton del menu. Sin esto vite solo compila
+    // Seis paginas, una por boton del menu. Sin esto vite solo compila
     // index.html y las demas no llegarian al build.
     rollupOptions: {
       input: {
         principal: resolve(import.meta.dirname, 'index.html'),
         territorio: resolve(import.meta.dirname, 'territorio.html'),
         mochilas: resolve(import.meta.dirname, 'mochilas.html'),
-        videos: resolve(import.meta.dirname, 'videos.html'),
+        historias: resolve(import.meta.dirname, 'historias.html'),
+        noticias: resolve(import.meta.dirname, 'noticias.html'),
+        trabaja: resolve(import.meta.dirname, 'trabaja.html'),
       },
     },
   },

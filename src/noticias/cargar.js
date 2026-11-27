@@ -1,18 +1,18 @@
-// Descubre las experiencias solas: cada carpeta dentro de /experiencias es un
-// evento o una salida en la que estuvo El Atánquero. Para sumar una nueva no
-// hay que tocar codigo — se crea la carpeta con su experiencia.json y aparece
-// sola en la pagina.
+// Descubre las noticias solas: cada carpeta dentro de /noticias es una
+// noticia. Para sumar una nueva no hay que tocar codigo — se crea la carpeta
+// con su noticia.json y aparece sola en noticias.html, la mas reciente arriba.
 //
-//   experiencias/
+//   noticias/
 //     el-nombre-que-sea/
-//       experiencia.json  <- obligatorio
-//       fotos/*.jpg       <- las fotos del carrusel
+//       noticia.json   <- obligatorio (titulo, fecha, lugar, descripcion,
+//                         y si viene de otro medio: fuente y enlace)
+//       fotos/*.jpg    <- las fotos del carrusel (opcional)
 //
 // Si el json trae la lista "fotos", ese es el orden del carrusel; si no la
 // trae, entran todas las de la carpeta ordenadas por nombre.
 
-const fichas = import.meta.glob('/experiencias/*/experiencia.json', { eager: true });
-const fotos = import.meta.glob('/experiencias/*/fotos/*.{jpg,jpeg,png,webp}', {
+const fichas = import.meta.glob('/noticias/*/noticia.json', { eager: true });
+const fotos = import.meta.glob('/noticias/*/fotos/*.{jpg,jpeg,png,webp}', {
   eager: true,
   query: '?url',
   import: 'default',
@@ -25,7 +25,7 @@ const carpeta = (ruta) => ruta.split('/')[2];
 function resolver(id, ruta) {
   if (!ruta) return null;
   const limpia = String(ruta).replace(/^\.?\//, '');
-  return fotos[`/experiencias/${id}/${limpia}`] ?? null;
+  return fotos[`/noticias/${id}/${limpia}`] ?? null;
 }
 
 function todasDe(id) {
@@ -35,7 +35,7 @@ function todasDe(id) {
     .map((k) => fotos[k]);
 }
 
-export function cargarExperiencias() {
+export function cargarNoticias() {
   return Object.keys(fichas)
     .map((ruta) => {
       const id = carpeta(ruta);
@@ -47,12 +47,14 @@ export function cargarExperiencias() {
         fecha: datos.fecha ?? '',
         lugar: datos.lugar ?? '',
         descripcion: datos.descripcion ?? '',
+        fuente: datos.fuente ?? '',
+        enlace: datos.enlace ?? '',
         fotos: declaradas.length ? declaradas : todasDe(id),
       };
     })
     .sort(
       (a, b) =>
-        // Lo mas reciente primero; las experiencias sin fecha bajan al final.
+        // Lo mas reciente primero; las noticias sin fecha bajan al final.
         b.fecha.localeCompare(a.fecha, 'es', { numeric: true }) ||
         a.titulo.localeCompare(b.titulo, 'es'),
     );

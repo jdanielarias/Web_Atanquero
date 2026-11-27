@@ -6,7 +6,7 @@ import './css/app.css';
 
 import { cargarMochilas } from './catalogo/cargar.js';
 import { cargarPiezas } from './hilo/cargar.js';
-import { cargarExperiencias } from './experiencias/cargar.js';
+import { cargarNoticias } from './noticias/cargar.js';
 import { wa } from './config.js';
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -32,6 +32,8 @@ enlaceWa('#waPlanC', 'Hola Enosh, quiero el plan C: Atánquez y Mojao o La Mina.
 enlaceWa('#waPie', 'Hola Enosh, quiero más información.');
 enlaceWa('#waHero', 'Hola Enosh, quiero caminar el territorio kankuamo contigo.');
 enlaceWa('#waNav', 'Hola Enosh, quiero más información.');
+enlaceWa('#waServicios', 'Hola, quiero cotizar un proyecto con El Atánquero Explora y El Mochilón de la Sierra:');
+enlaceWa('#waTrabaja', 'Hola, quiero trabajar con El Atánquero Explora. Les cuento quién soy y qué hago:');
 
 // El mapa del territorio vive en la portada. MapLibre pesa mas que todo el
 // resto del sitio junto, asi que va en su propio pedazo del build y solo se
@@ -254,10 +256,20 @@ if (hiloLista) {
   }
 }
 
-// --- experiencias: las puntadas que van quedando -------------------------
-// Cada experiencia es una tarjeta con su carrusel de fotos: la tira se
-// desliza con scroll-snap (dedo en el celular) y las flechas y puntos solo
-// aparecen cuando hay mas de una foto.
+// --- muestras de trabajo (noticias.html) ----------------------------------
+// Las mismas piezas de /hilo, pero solo las que nombra data-piezas, en ese
+// orden: asi una produccion se muestra aqui sin repetir su carpeta.
+const muestrasLista = $('#muestras-lista');
+if (muestrasLista) {
+  const ids = (muestrasLista.dataset.piezas ?? '').split(',').map((t) => t.trim()).filter(Boolean);
+  const elegidas = ids.map((id) => piezas.find((pz) => pz.id === id)).filter(Boolean);
+  muestrasLista.append(...elegidas.map(tarjetaPieza));
+}
+
+// --- noticias -------------------------------------------------------------
+// Cada noticia es una tarjeta con su carrusel de fotos: la tira se desliza
+// con scroll-snap (dedo en el celular) y las flechas y puntos solo aparecen
+// cuando hay mas de una foto. Una noticia sin fotos va solo con su texto.
 const MESES = [
   'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
   'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre',
@@ -344,30 +356,16 @@ function carrusel(exp) {
   return caja;
 }
 
-function tarjetaExperiencia(exp) {
+function tarjetaNoticia(exp) {
   const art = document.createElement('article');
-  art.className = 'experiencia';
+  art.className = exp.fotos.length ? 'experiencia' : 'experiencia solo-texto';
 
   const hiloLat = document.createElement('span');
   hiloLat.className = 'hilo-lateral';
   hiloLat.setAttribute('aria-hidden', 'true');
   art.append(hiloLat);
 
-  if (exp.fotos.length) {
-    art.append(carrusel(exp));
-  } else {
-    const marco = document.createElement('div');
-    marco.className = 'exp-carrusel';
-    const vacio = document.createElement('div');
-    vacio.className = 'sin-foto';
-    const p = document.createElement('p');
-    p.append(texto('Faltan las fotos'));
-    const c = document.createElement('code');
-    c.append(texto(`experiencias/${exp.id}/fotos/`));
-    vacio.append(p, c);
-    marco.append(vacio);
-    art.append(marco);
-  }
+  if (exp.fotos.length) art.append(carrusel(exp));
 
   const cuerpo = document.createElement('div');
   cuerpo.className = 'exp-texto';
@@ -390,32 +388,37 @@ function tarjetaExperiencia(exp) {
     cuerpo.append(p);
   }
 
+  // La fuente original: cada noticia enlaza al medio que la publico.
+  if (exp.enlace) {
+    const fuente = document.createElement('a');
+    fuente.className = 'exp-fuente';
+    fuente.href = exp.enlace;
+    fuente.target = '_blank';
+    fuente.rel = 'noopener';
+    fuente.append(texto(`Leer en ${exp.fuente || 'la fuente'} →`));
+    cuerpo.append(fuente);
+  }
+
   art.append(cuerpo);
   return art;
 }
 
-const experienciasLista = $('#experiencias-lista');
-if (experienciasLista) {
-  const experiencias = cargarExperiencias();
-  if (!experiencias.length) {
-    const aviso = document.createElement('div');
-    aviso.className = 'aviso';
-    aviso.append(
-      texto('Todavía no hay experiencias. Crea una carpeta en experiencias/ con su experiencia.json — mira el README.'),
-    );
-    experienciasLista.append(aviso);
+const noticiasLista = $('#noticias-lista');
+if (noticiasLista) {
+  const noticias = cargarNoticias();
+  if (!noticias.length) {
+    // Lo ve el publico: nada de instrucciones tecnicas, solo un aviso amable.
+    const vacio = document.createElement('p');
+    vacio.className = 'noticias-vacio';
+    vacio.append(texto('Muy pronto publicaremos aquí las noticias de El Atánquero Explora.'));
+    noticiasLista.append(vacio);
   } else {
-    // En la principal solo van las mas recientes (data-max); si hay mas,
-    // aparece el boton hacia experiencias.html con el archivo completo.
-    const max = Number(experienciasLista.dataset.max) || Infinity;
-    experienciasLista.append(...experiencias.slice(0, max).map(tarjetaExperiencia));
-    const todas = $('#experiencias-todas');
-    if (todas && experiencias.length > max) todas.hidden = false;
+    noticiasLista.append(...noticias.map(tarjetaNoticia));
   }
 }
 
 // --- saltos que llegan desde otra pagina ---------------------------------
-// Al venir de mochilas.html o experiencias.html a index.html#seccion, el
+// Al venir de otra pagina a index.html#seccion, el
 // salto se hace aqui, de golpe y ya con las listas de arriba armadas. Se
 // repite una vez al terminar de cargar (fuentes e imagenes pueden mover la
 // seccion), salvo que la persona ya haya empezado a moverse por la pagina.

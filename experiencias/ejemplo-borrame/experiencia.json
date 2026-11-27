@@ -1,7 +1,0 @@
-{
-  "titulo": "Así se ve una experiencia (ejemplo)",
-  "fecha": "2026-07",
-  "lugar": "Atánquez",
-  "descripcion": "Esta es una experiencia de ejemplo, con fotos prestadas del resto de la página, para que se vea cómo queda el carrusel. Cuando subas la primera de verdad, borra la carpeta experiencias/ejemplo-borrame (o bórrala desde el panel de administración).",
-  "fotos": ["fotos/1.jpg", "fotos/2.jpg", "fotos/3.jpg"]
-}

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Noticias — El Atánquero Explora</title>
+    <meta
+      name="description"
+      content="Noticias del pueblo kankuamo y servicios de El Mochilón de la Sierra y El Atánquero Explora: impulso de marcas, cortometrajes, documentales y cubrimiento de eventos."
+    />
+    <meta name="theme-color" content="#f2ede2" />
+    <!-- La tarjeta que arman WhatsApp, Facebook y demas al compartir el
+         enlace: foto, titulo y descripcion. La foto vive en public/ para que
+         su direccion no cambie con cada compilacion. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="El Atánquero Explora" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:url" content="https://elatanquero.com/noticias" />
+    <meta property="og:title" content="Noticias — El Atánquero Explora" />
+    <meta property="og:description" content="Noticias del pueblo kankuamo y servicios de El Mochilón de la Sierra y El Atánquero Explora: impulso de marcas, cortometrajes, documentales y cubrimiento de eventos." />
+    <meta property="og:image" content="https://elatanquero.com/compartir.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Una persona fotografía las montañas de la Sierra Nevada al atardecer desde la cima de un cerro" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://elatanquero.com/noticias" />
+  </head>
+  <body>
+    <!-- Hojas del monte que caen por toda la pagina, detras del contenido. -->
+    <div class="hojas" aria-hidden="true">
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+      <span class="hoja"></span>
+    </div>
+
+    <a class="saltar" href="#noticias">Saltar al contenido</a>
+
+    <nav class="nav">
+      <a class="nav-marca" href="./index.html">
+        <img class="nav-logo" src="./fotos_recorrido/web/enosh-logo.webp" alt="" />
+        El Atánquero Explora
+      </a>
+      <ul class="nav-lista">
+        <li><a href="./index.html">Inicio</a></li>
+        <li><a href="./territorio.html">Territorio</a></li>
+        <li><a href="./mochilas.html">Mochilas</a></li>
+        <li><a href="./historias.html">Historias</a></li>
+        <li><a href="./noticias.html" aria-current="page">Noticias</a></li>
+        <li><a href="./trabaja.html">Trabaja con nosotros</a></li>
+      </ul>
+      <a class="boton solido nav-contacto" id="waNav" href="#" target="_blank" rel="noopener">Contáctame</a>
+    </nav>
+
+    <!-- ===================== NOTICIAS ===================== -->
+    <!-- La lista la arma src/main.js leyendo las carpetas de /noticias: la
+         mas reciente arriba, cada una con el enlace a su fuente. Mira el
+         README para agregar una. -->
+    <section class="seccion" id="noticias">
+      <div class="limite">
+        <p class="kicker">El Mochilón de la Sierra · El Atánquero Explora</p>
+        <h1 class="titulo">Noticias del <em>pueblo kankuamo.</em></h1>
+        <p class="parrafo" style="margin-top: 1.1rem">
+          Lo que pasa en el resguardo y en la Sierra Nevada de Gonawindúa. Cada noticia
+          enlaza al medio que la publicó.
+        </p>
+        <div class="experiencias noticias-grid" id="noticias-lista"></div>
+      </div>
+    </section>
+
+    <!-- ===================== EL MOCHILÓN DE LA SIERRA ===================== -->
+    <!-- Solo datos verificados en sus propias paginas y en la ficha del
+         Centro Nacional de Memoria Historica, la UNAL y Spotify. -->
+    <section class="seccion" id="mochilon">
+      <div class="limite mochilon-reja">
+        <div>
+          <div class="rotulo">
+            <span class="nombre">El Mochilón de la Sierra</span>
+            <span class="regla"></span>
+          </div>
+          <h2 class="titulo">Comunicando por el buen vivir <em>de nuestros pueblos.</em></h2>
+          <p class="parrafo" style="margin-top: 1.1rem">
+            El Mochilón de la Sierra es un colectivo de comunicación comunitaria del pueblo
+            kankuamo, dirigido por Enosh Arias. Desde Atánquez cuenta la música, la artesanía,
+            la palabra de los mayores y las historias de resistencia de los cuatro pueblos de
+            la Sierra: kankuamo, kogui, arhuaco y wiwa.
+          </p>
+          <p class="parrafo">
+            El Mochilón TV fue ganador de la convocatoria internacional de co-creación con
+            medios de comunicación de Latinoamérica frente al impacto de la crisis climática en
+            los pueblos indígenas, y junto a Agenda Propia realizó <em>Legado Ancestral</em>.
+          </p>
+        </div>
+        <ul class="mochilon-medios">
+          <li>
+            <b>Pódcast</b>
+            <a href="https://open.spotify.com/show/4wIpkTp8EwK5kGqUnpeIaY" target="_blank" rel="noopener">El Mochilón de la Sierra en Spotify →</a>
+          </li>
+          <li>
+            <b>Video</b>
+            <a href="https://www.youtube.com/elmochilontv" target="_blank" rel="noopener">El Mochilón TV en YouTube →</a>
+          </li>
+          <li>
+            <b>Radio</b>
+            <span>Voces Kankuamas, en Tayrona Estéreo 90.7</span>
+          </li>
+          <li>
+            <b>Redes</b>
+            <a href="https://www.facebook.com/elmochilondelasierra/" target="_blank" rel="noopener">Facebook →</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== SERVICIOS (franja verde) ===================== -->
+    <section class="servicios" id="servicios" aria-labelledby="servicios-titulo">
+      <div class="limite">
+        <p class="kicker">Servicios</p>
+        <h2 class="titulo" id="servicios-titulo">Contamos tu historia <em>desde el territorio.</em></h2>
+        <p class="servicios-intro">
+          El Atánquero Explora y El Mochilón de la Sierra unen su experiencia para producir
+          contenido con identidad propia.
+        </p>
+        <ul class="servicios-lista">
+          <li>
+            <b>Impulso de marcas</b>
+            Creación de contenido para redes: video, fotografía y textos que hacen crecer tu
+            marca o tu emprendimiento.
+          </li>
+          <li>
+            <b>Cortometrajes y documentales</b>
+            Producción completa, de la idea y la investigación a la grabación y la edición.
+          </li>
+          <li>
+            <b>Cubrimiento de eventos</b>
+            Fotografía y video para eventos, reuniones, encuentros y celebraciones.
+          </li>
+          <li>
+            <b>Pódcast y radio</b>
+            Piezas sonoras, entrevistas y programas, con la experiencia de El Mochilón y Tayrona
+            Estéreo.
+          </li>
+        </ul>
+        <a class="boton solido grande" id="waServicios" href="#" target="_blank" rel="noopener">Cotiza tu proyecto <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- ===================== MUESTRAS ===================== -->
+    <!-- data-piezas: las carpetas de /hilo que se muestran aqui, en orden. -->
+    <section class="seccion" id="muestras">
+      <div class="limite">
+        <div class="rotulo">
+          <span class="nombre">Muestras</span>
+          <span class="regla"></span>
+        </div>
+        <h2 class="titulo">Algunos <em>de nuestros trabajos.</em></h2>
+        <ul class="hilo-piezas" id="muestras-lista" data-piezas="tejedoras-de-vida,guatapuri-cien-anos,llamado-sabedores"></ul>
+      </div>
+    </section>
+
+    <!-- ===================== 05 · BOCA ===================== -->
+    <section class="seccion" id="boca">
+      <div class="limite">
+        <div class="rotulo">
+          <span class="paso" aria-hidden="true">
+            <svg viewBox="-15 -13 30 27">
+              <circle cx="0" cy="0" r="2.8" fill="var(--brasil)" />
+              <path
+                fill="none"
+                stroke="var(--brasil)"
+                stroke-width="2"
+                stroke-linecap="round"
+                d="M0 0 A4 4 0 0 1 8 0 A6.5 6.5 0 0 1 -5 0 A9 9 0 0 1 13 0 A11.5 11.5 0 0 1 -10 0"
+              />
+            </svg>
+          </span>
+          <span class="nombre">Boca</span>
+          <span class="regla"></span>
+        </div>
+
+        <div class="cierre-reja">
+          <div>
+            <h2 class="titulo">La conversación <em>queda abierta</em></h2>
+            <p class="parrafo" style="margin-top: 1.1rem">
+              Escríbeme si quieres cuadrar un recorrido o preguntar por una mochila.
+            </p>
+            <div class="redes">
+              <a href="https://www.youtube.com/@elatanqueroexplora" target="_blank" rel="noopener">YouTube</a>
+              <a href="https://www.instagram.com/elatanquero" target="_blank" rel="noopener">Instagram</a>
+              <a href="https://www.tiktok.com/@elatanquero" target="_blank" rel="noopener">TikTok</a>
+              <a href="https://www.facebook.com/elatanquero" target="_blank" rel="noopener">Facebook</a>
+              <a href="https://x.com/elatanquero" target="_blank" rel="noopener">X</a>
+            </div>
+          </div>
+          <div class="cierre-firma">
+            <img
+              class="cierre-logo"
+              src="./fotos_recorrido/web/enosh-logo.webp"
+              alt="Logo de El Atánquero Explora"
+              loading="lazy"
+            />
+            <a class="boton solido grande" id="waPie" href="#">Escríbeme por WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="pie">
+          <span>El Atánquero Explora · Atánquez, Sierra Nevada de Santa Marta</span>
+          <span>© 2026</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- La Sierra: tres cordones. El lejano, azuloso, lleva los picos
+         nevados — los dos del centro son los gemelos, Colón y Bolívar.
+         Cierra la página entera como un horizonte, al pie de todo. -->
+    <svg class="sierra" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
+      <path
+        fill="var(--anil)"
+        opacity="0.3"
+        d="M0 168 L90 120 L150 138 L230 84 L300 128 L380 96 L450 130 L520 60 L575 105 L610 78 L680 125 L760 92 L830 130 L920 70 L1000 126 L1080 100 L1200 150 V200 H0 Z"
+      />
+      <path fill="var(--papel-alto)" d="M204 106 L230 84 L255 105 L243 98 L231 110 L217 100 Z" />
+      <path fill="var(--papel-alto)" d="M488 88 L520 60 L549 86 L536 78 L524 92 L508 80 L497 90 Z" />
+      <path fill="var(--papel-alto)" d="M584 100 L610 78 L634 99 L622 92 L610 104 L596 94 Z" />
+      <path fill="var(--papel-alto)" d="M892 94 L920 70 L947 93 L934 86 L921 99 L906 89 Z" />
+      <path
+        fill="var(--fique)"
+        opacity="0.55"
+        d="M0 200 V150 L120 118 L240 152 L360 112 L480 150 L600 118 L720 154 L840 120 L980 156 L1100 130 L1200 152 V200 Z"
+      />
+      <path
+        fill="var(--monte)"
+        opacity="0.3"
+        d="M0 200 V172 L150 150 L320 176 L500 148 L680 178 L860 152 L1040 180 L1200 160 V200 Z"
+      />
+    </svg>
+
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

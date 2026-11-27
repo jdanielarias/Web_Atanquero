@@ -1951,3 +1951,157 @@ a {
     grid-template-columns: 1fr;
   }
 }
+
+/* Una noticia sin fotos: solo el texto, a todo el ancho. */
+.experiencia.solo-texto {
+  grid-template-columns: 1fr;
+}
+.noticias-vacio {
+  padding: 2rem 0;
+  font-size: 1.05rem;
+  color: var(--tinta-media);
+}
+
+/* ===========================================================================
+   TRABAJA CON NOSOTROS (trabaja.html)
+   =========================================================================== */
+.trabaja-areas {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1.5rem 2rem;
+  margin: clamp(1.75rem, 4vw, 2.75rem) 0 clamp(2rem, 5vw, 3rem);
+}
+.trabaja-areas li {
+  padding-top: 0.9rem;
+  border-top: 2px solid var(--dorado);
+  color: var(--tinta-media);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.trabaja-areas b {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 100, 'opsz' 20;
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  color: var(--tinta);
+}
+
+/* ===========================================================================
+   NOTICIAS Y EL MOCHILON (noticias.html)
+   =========================================================================== */
+/* Las noticias sin foto van en dos columnas; las que traen fotos ocupan la
+   fila entera con su carrusel. */
+.noticias-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+}
+.noticias-grid .experiencia:not(.solo-texto) {
+  grid-column: 1 / -1;
+}
+.noticias-grid .solo-texto .exp-texto {
+  justify-content: flex-start;
+}
+.exp-fuente {
+  margin-top: auto;
+  padding-top: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--dorado-texto);
+  text-decoration: none;
+}
+.exp-fuente:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.mochilon-reja {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: clamp(1.75rem, 5vw, 4rem);
+  align-items: start;
+}
+.mochilon-medios {
+  list-style: none;
+  border-top: 2px solid var(--tinta);
+}
+.mochilon-medios li {
+  padding: 0.95rem 0;
+  border-bottom: 1px solid var(--linea-fuerte);
+  font-size: 0.95rem;
+  color: var(--tinta-media);
+}
+.mochilon-medios b {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dorado-texto);
+  margin-bottom: 0.2rem;
+}
+.mochilon-medios a {
+  color: var(--tinta);
+  font-weight: 700;
+  text-decoration: none;
+}
+.mochilon-medios a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 52rem) {
+  .mochilon-reja {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* La franja verde de servicios. */
+.servicios {
+  padding: clamp(3.5rem, 8vw, 6rem) var(--marco);
+  background: var(--verde);
+  color: var(--papel-alto);
+}
+.servicios .kicker {
+  color: var(--dorado);
+}
+.servicios .titulo {
+  color: var(--papel-alto);
+}
+.servicios .titulo em {
+  color: var(--dorado);
+}
+.servicios-intro {
+  margin-top: 1.1rem;
+  max-width: 52ch;
+  color: rgba(250, 247, 240, 0.8);
+}
+.servicios-lista {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 1.75rem 2rem;
+  margin: clamp(2rem, 5vw, 3rem) 0 clamp(2rem, 5vw, 3rem);
+}
+.servicios-lista li {
+  padding-top: 0.9rem;
+  border-top: 2px solid var(--dorado);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: rgba(250, 247, 240, 0.8);
+}
+.servicios-lista b {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 100, 'opsz' 20;
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  color: var(--papel-alto);
+}
+.servicios .boton.solido:hover {
+  background: var(--papel-alto);
+  border-color: var(--papel-alto);
+  color: var(--tinta);
+}

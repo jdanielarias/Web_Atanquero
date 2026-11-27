@@ -96,39 +96,42 @@ en la carpeta:
 
 ---
 
-## Agregar una experiencia (página "Experiencias")
+## Agregar una noticia (página "Noticias")
 
-Funciona igual que las mochilas: cada evento o salida es una carpeta dentro de
-`experiencias/`, con sus fotos en carrusel y un cuento corto.
+Cada noticia es una carpeta dentro de `noticias/`, con su texto y, si quieres,
+fotos en carrusel. La más reciente sale primero.
 
 ```
-experiencias/
-  corpus-2026/                <- el nombre que quieras, sin espacios ni tildes
-    experiencia.json          <- OBLIGATORIO
-    fotos/
+noticias/
+  fiesta-corpus-2027/         <- el nombre que quieras, sin espacios ni tildes
+    noticia.json              <- OBLIGATORIO
+    fotos/                    <- opcional
       1.jpg
       2.jpg
 ```
 
-### `experiencia.json`
+`noticia.json`:
 
 ```json
 {
-  "titulo": "Corpus Christi con el grupo de la universidad",
-  "fecha": "2026-06",
+  "titulo": "Así vivimos el Corpus Christi",
+  "fecha": "2027-06-10",
   "lugar": "Atánquez",
-  "descripcion": "Un par de frases sobre lo que se vivió ese día.",
-  "fotos": ["fotos/1.jpg", "fotos/2.jpg"]
+  "descripcion": "El texto de la noticia.",
+  "fotos": ["fotos/1.jpg", "fotos/2.jpg"],
+  "fuente": "Diario del Cesar",
+  "enlace": "https://..."
 }
 ```
 
-- `fecha` es `"año-mes"` o `"año-mes-día"` y ordena: lo más reciente sale
-  primero. En la página se muestra bonita ("junio de 2026").
-- `lugar` es opcional.
-- `fotos` es el orden del carrusel. Si no pones la lista, entran todas las de
-  la carpeta `fotos/` ordenadas por nombre.
-- Hay una experiencia de ejemplo en `experiencias/ejemplo-borrame/`:
-  **bórrala cuando subas la primera de verdad.**
+- `fecha` puede ser `"2027-06"` o `"2027-06-10"`.
+- `fotos` es opcional: si no la pones, entran todas las de la carpeta en orden
+  de nombre. Una noticia sin fotos sale solo con su texto.
+- `fuente` y `enlace` son opcionales: si la noticia salió en otro medio, la
+  tarjeta muestra «Leer en (fuente) →» con el enlace.
+- Las **muestras de trabajo** de esa página son videos de `hilo/`: se eligen
+  en `noticias.html`, en el atributo `data-piezas` de `#muestras-lista`
+  (los nombres de carpeta separados por comas).
 
 ---
 
@@ -211,8 +214,8 @@ que solo Enosh puede dar.
   `import.meta.glob`. Ahí está la magia de "no tocar código".
 - `src/hilo/cargar.js` — lo mismo pero para `hilo/`: los videos de YouTube
   y las fotos de la sección "El hilo".
-- `src/experiencias/cargar.js` — lo mismo para `experiencias/`: la página
-  de experiencias con su carrusel de fotos.
+- `src/noticias/cargar.js` — lo mismo para `noticias/`: la página de
+  noticias con su carrusel de fotos.
 - `src/css/app.css` — todo el diseño. La paleta sale de materiales reales:
   fique crudo, añil, palo brasil. El único movimiento del sitio está en
   Recorridos: hojas que caen y agua que se mece, en CSS puro.
